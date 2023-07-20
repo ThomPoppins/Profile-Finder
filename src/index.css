@@ -4,6 +4,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 h2 {
@@ -51,9 +52,8 @@ h2 {
   border: solid 2px rgb(48, 48, 48);
 }
 
-body {
-  text-align: center;
-}
+
+
 
 /*----- Navbar -----*/
 
@@ -97,6 +97,11 @@ nav .logo-container .logo {
   width: 100%;
 }
 
+
+
+
+
+
 /*----- Home page -----*/
 .overlay {
   width: 100vw;
@@ -106,6 +111,15 @@ nav .logo-container .logo {
       rgba(0, 0, 0, 0.65) 0%,
       rgba(0, 0, 0, 0) 100%), url(images/galaxy.jpg)
 }
+
+/* TODO: Check this marggin top later if this still works */
+.home {
+  margin-top: 16vh
+}
+
+
+
+
 
 
 /*----- Auth Modal -----*/

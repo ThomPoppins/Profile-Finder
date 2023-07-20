@@ -32,7 +32,7 @@ const Home = () => {
         setIsSignUp={setIsSignUp}
       />
       <div className="home">
-        <h1 className="primary-title">Profile Finder</h1>
+        <h1 className="primary-title">Thom Poppins</h1>
 
         {/* if the user is logged in, the button says "Signout" */}
         {/* if the user is not logged in, the button says "Create Account" */}
