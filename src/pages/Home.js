@@ -27,8 +27,8 @@ const Home = () => {
       {/* the authToken and setShowModal variables are passed as props */}
       <Nav
         minimal={false}
-        authToken={authToken}
         setShowModal={setShowModal}
+        showModal={showModal}
         setIsSignUp={setIsSignUp}
       />
       <div className="home">

@@ -2,7 +2,7 @@ import logo from "../images/logo.png";
 import colorlogo from "../images/colorlogo.png";
 
 // the Nav component is a functional component that takes in props
-const Nav = ({ minimal, authToken, setShowModal, showModal, setIsSignUp }) => {
+const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
   // a function that is called when the button is clicked
   const handleClick = () => {
     // it sets the state variable showModal to true, which opens the modal
@@ -10,6 +10,9 @@ const Nav = ({ minimal, authToken, setShowModal, showModal, setIsSignUp }) => {
     // it sets the state variable isSignUp to false, which renders the login form
     setIsSignUp(false);
   };
+
+  // a variable that normally is true if the user is logged in
+  const authToken = false;
 
   return (
     <nav>
