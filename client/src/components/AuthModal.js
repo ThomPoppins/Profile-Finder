@@ -11,7 +11,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
   // useNavigate is a function that is used to navigate to a different page
-  let navigate = useNavigate;
+  let navigate = useNavigate();
 
   console.log(email, password, confirmPassword);
 
@@ -55,15 +55,15 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
       // TODO: find another way to redirect the user to /onboarding
-      // if (response.status === 201) navigate("/onboarding");
+      if (response.status === 201) navigate("/onboarding");
       // TODO: remove console.log
-      console.log(response.status);
-      if (response.status === 201) {
-        // TODO: redirect the user to /onboarding instead of closing the modal
-        // navigate("/onboarding");
-        console.log("I should have been redirected");
-        setShowModal(false); // close the modal after registration
-      }
+      // console.log(response.status);
+      // if (response.status === 201) {
+      //   // TODO: redirect the user to /onboarding instead of closing the modal
+      //   // navigate("/onboarding");
+      //   console.log("I should have been redirected");
+      //   setShowModal(false); // close the modal after registration
+      // }
     } catch (error) {
       // if the response is not successful, log the error to the console
       console.log(error);
