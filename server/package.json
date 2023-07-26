@@ -1,11 +1,11 @@
 {
-  "name": "Profile-Finder Backend",
+  "name": "Profile Finder Backend",
   "version": "0.2.0",
   "description": "Admin backend",
   "main": "index.js",
   "scripts": {
-    "start:backend": "nodemon index.js",
-    "test:backend": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Thom Veldpaus",
   "license": "ISC",

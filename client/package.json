@@ -1,5 +1,5 @@
 {
-  "name": "Profile-Finder",
+  "name": "Profile-Finder Frontend",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
@@ -17,10 +17,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:frontend": "react-scripts start",
-    "build:frontend": "react-scripts build",
-    "test:frontend": "react-scripts test",
-    "eject:frontend": "react-scripts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
