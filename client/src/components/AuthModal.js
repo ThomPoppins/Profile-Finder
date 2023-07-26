@@ -87,7 +87,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
     } catch (error) {
       // if the response is not successful, catch the error
       // log the error to the console
-      // TODO: better error handling
+      // TODO: better error handling.
       console.log(error);
     }
   };
