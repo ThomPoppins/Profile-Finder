@@ -1,5 +1,5 @@
-import logo from "../images/logo.png";
-import colorlogo from "../images/colorlogo.png";
+import logo from "../images/logo2.png";
+import colorlogo from "../images/colorlogo2.png";
 
 // the Nav component is a functional component that takes in props
 const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
@@ -18,7 +18,9 @@ const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
     <nav>
       <div className="logo-container">
         {/* if minimal is true, the logo is the minimal logo, otherwise it is the color logo */}
-        <img className="logo" alt="logo" src={minimal ? logo : colorlogo} />
+        <a href="/">
+          <img className="logo" alt="logo" src={minimal ? logo : colorlogo} />
+        </a>
       </div>
 
       {/* if minimal and authToken are false, the Log In button is rendered */}

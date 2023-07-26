@@ -17,7 +17,19 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   // useNavigate is a function that is used to navigate to a different page
   let navigate = useNavigate();
   // useCookies is a function that is used to set and remove cookies
-  const [cookies, setCookie, removeCookie] = useCookie(null);
+  // cookies are used to store the token
+  // setCookie is a function that is used to set a cookie
+  // removeCookie is a function that is used to remove a cookie
+  // useCookies returns an array with the following values:
+  // 1. the value of the cookie
+  // 2. the function that is used to set the cookie
+  // 3. the function that is used to remove the cookie
+  // TODO: maybe keep the following comment: the following line is used to set the cookies
+  const [cookies, setCookie, removeCookie] = useCookie([
+    "Email",
+    "UserId",
+    "AuthToken",
+  ]);
   // cookies are used to store the token
   // the token is used to authenticate the user
   // the token is sent to the server with every request
@@ -65,6 +77,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         }
       );
 
+      console.log("BEFORE CREATE COOKIES: ", cookies);
       // set the cookie values after the response:
       setCookie("Email", response.data.email);
       setCookie("UserId", response.data.userId);
@@ -74,6 +87,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // the server checks if the token is valid
       // if the token is valid, the user is authenticated
       setCookie("AuthToken", response.data.token);
+      console.log("AFTER CREATE COOKIES: ", cookies);
 
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
