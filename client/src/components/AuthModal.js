@@ -47,11 +47,13 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
 
       // make a POST request to the backend
       // the request is made to the /signup endpoint
+      // OR the request is made to the /login endpoint
       // the request body contains the email and password
       // the backend will return a response
       // the response contains the status code and the data
+      // the data contains the user_id, email and auth_token
       const response = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/signup",
+        process.env.REACT_APP_BACKEND_URL + `/${isSignUp ? "signup" : "login"}`,
         {
           email,
           password,
@@ -83,7 +85,8 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
 
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
-      if (response.status === 201) navigate("/onboarding");
+      if (response.status === 201 && isSignUp) navigate("/onboarding");
+      if (response.status === 201 && !isSignUp) navigate("/dashboard");
     } catch (error) {
       // if the response is not successful, catch the error
       // log the error to the console
