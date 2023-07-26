@@ -117,6 +117,25 @@ nav .logo-container .logo {
   margin-top: 16vh
 }
 
+.home .primary-title {
+  font-size: 90px;
+  color: rgba(255, 255, 255);
+  font-weight: 700;
+  top: 0%;
+  left: 50%; 
+  right: 50%;
+  transform: translate(-3%, -15%);
+}
+
+.home .secondary-title {
+  font-size: 50px;
+  color: rgba(255, 255, 255);
+  font-weight: 700;
+  top: 0%;
+  left: 50%;
+  right: 50%;
+  transform: translate(10%, -130%);
+}
 
 
 
@@ -431,49 +450,6 @@ nav .logo-container .logo {
 .img-container img {
   width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ----- Chat Display ----- */

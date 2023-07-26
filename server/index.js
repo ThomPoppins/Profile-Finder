@@ -124,18 +124,14 @@ app.post("/signup", async (req, res) => {
     // the token is generated when the user logs in
     //TODO: check: jwt sign the token and send it to the client
     const token = jwt.sign(insertedUser, sanitizedEmail, {
-      expiresIn: 180, // TODO: set to 24 hours 60 * 24
+      expiresIn: 60 * 24, // expires in 24 hours
     });
 
     // send a response to the client
-    // the response contains the token, the user id and the email
-    // the token, user id and email are sent to the client
     // the client stores the token in the local storage
-    // TODO: add token to the response
     res
       .status(201)
       .json({ token, userId: generatedUserId, email: sanitizedEmail });
-    // res.status(201).json({ userId: generatedUserId, sanitizedEmail });
   } catch (error) {
     // catch any errors and log them to the console
     console.log(error);
