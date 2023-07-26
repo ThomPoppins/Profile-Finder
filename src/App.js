@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
  * Route: a single route
  * @returns
  */
+
 const App = () => {
   return (
     <BrowserRouter>

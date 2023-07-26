@@ -158,3 +158,116 @@ nav .logo-container .logo {
   margin: 8px;
   font-size: 17px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- OnBoarding Page ----- */
+/* form on the onboarding page */
+.onboarding form {
+  display: flex;
+  justify-content: center;
+}
+
+/* each section inside the onboarding form */
+.onboarding form section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 35%;
+  /* align text to the left */
+  text-align: start;
+}
+
+/* every input of the onboarding form */
+.onboarding form input {
+  padding: 15px 30px;
+  margin: 10px 0;
+  font-size: 15px;
+  border: solid 2px rgb(219, 219, 219);
+  border-radius: 10px;
+}
+
+/* TODO: Find out what this does and comment/document it */
+.onboarding form input::-webkit-outer-spin-button,
+.onboarding form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* every label of the onboarding form */
+.onboarding form label {
+  margin: 10px 0;
+}
+
+/* everything inside of every div with class multiple-input-container */
+.onboarding form .multiple-input-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* every input inside of every div with class multiple-input-container */
+.onboarding form .multiple-input-container input {
+  margin-right: 10px;
+}
+
+/* every label inside of every div with class multiple-input-container */
+.onboarding form .multiple-input-container label {
+  padding: 10px;
+  border: solid 2px rgb(144, 144, 144);
+  border-radius: 10px;
+  transition: all 0.3s;
+  margin-right: 10px;
+}
+
+/* every input type radio inside of every div with class multiple-input-container inside the onboarding form */
+.onboarding form input[type="radio"] {
+  display: none;
+}
+
+/* every number input inside the onboarding form, these are the birthday form fields */
+.onboarding form input[type="number"] {
+  width: 10%;
+}
+
+/* every checked input type radio where checked = true */
+.onboarding form input[type="radio"]:checked+label {
+  border: 2px solid rgb(221, 39, 22);
+}
+
+/* when hovering over the submit button in the onboarding page form*/
+.onboarding form input[type="submit"]:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+/* when clicking on the submit button in the onboarding page form*/
+.onboarding form input[type="submit"]:active {
+  background-color: rgb(226, 115, 155);
+}
