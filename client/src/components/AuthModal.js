@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import { useCookie } from "react-use";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
   // state variables that store the values of the input fields
@@ -9,10 +10,21 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
+  // state variable that stores the error message
+  // it is updated when the passwords don't match
+  // TODO: better error handling
   const [error, setError] = useState(null);
   // useNavigate is a function that is used to navigate to a different page
   let navigate = useNavigate();
+  // useCookies is a function that is used to set and remove cookies
+  const [cookies, setCookie, removeCookie] = useCookie(null);
+  // cookies are used to store the token
+  // the token is used to authenticate the user
+  // the token is sent to the server with every request
+  // the server checks if the token is valid
+  // if the token is valid, the user is authenticated
 
+  // TODO: remove the following console.log
   console.log(email, password, confirmPassword);
 
   // a function that is called when the X on the div is clicked
@@ -27,14 +39,12 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const handleSubmit = async (e) => {
     // prevent the default behaviour of the form
     e.preventDefault();
+
     // check if the passwords match if it is a signup
     // if they don't, set an error message
     // try to make a POST request to the backend
     // if it doesn't work, catch the error and log it to the console
-    // TODO: show error message to the user if password don't match
-    // TODO: make a POST request to the backend
-    // TODO: if the request is successful, close the modal
-    // TODO: if the request is not successful, show an error message
+    // TODO: show error message direct after losing focus, say to the user if password don't match
     try {
       if (isSignUp && password !== confirmPassword) {
         setError("Passwords do not match");
@@ -42,8 +52,11 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         return;
       }
 
-      // call database and post the email and password
-      // response is the response from the database
+      // make a POST request to the backend
+      // the request is made to the /signup endpoint
+      // the request body contains the email and password
+      // the backend will return a response
+      // the response contains the status code and the data
       const response = await axios.post(
         process.env.REACT_APP_BACKEND_URL + "/signup",
         {
@@ -52,20 +65,23 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         }
       );
 
+      // set the cookie values after the response:
+      setCookie("Email", response.data.email);
+      setCookie("UserId", response.data.userId);
+      // the cookies are used to store the token
+      // the token is used to authenticate the user
+      // the token is sent to the server with every request
+      // the server checks if the token is valid
+      // if the token is valid, the user is authenticated
+      setCookie("AuthToken", response.data.token);
+
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
-      // TODO: find another way to redirect the user to /onboarding
       if (response.status === 201) navigate("/onboarding");
-      // TODO: remove console.log
-      // console.log(response.status);
-      // if (response.status === 201) {
-      //   // TODO: redirect the user to /onboarding instead of closing the modal
-      //   // navigate("/onboarding");
-      //   console.log("I should have been redirected");
-      //   setShowModal(false); // close the modal after registration
-      // }
     } catch (error) {
-      // if the response is not successful, log the error to the console
+      // if the response is not successful, catch the error
+      // log the error to the console
+      // TODO: better error handling
       console.log(error);
     }
   };
@@ -115,7 +131,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         )}
-        <input type="submit" className="secondary-button" />
+        <input type="submit" className="secondary-button" value="Submit" />
         <p>{error}</p>
       </form>
       <hr />
