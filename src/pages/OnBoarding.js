@@ -2,15 +2,50 @@ import { useState } from "react";
 import Nav from "../components/Nav";
 
 const OnBoarding = () => {
+  const [formData, setFormData] = useState({
+    user_id: "",
+    first_name: "",
+    dob_day: "",
+    dob_month: "",
+    dob_year: "",
+    show_gender: false,
+    gender_identity: "man",
+    gender_interest: "woman",
+    email: "",
+    url: "",
+    about: "",
+    matches: [],
+  });
+
   // handleSubmit function to execute when the form is submitted
   const handleSubmit = () => {
     console.log("submitted");
   };
 
   // handleChange function to execute when a form field is changed
-  const handleChange = () => {
-    console.log("changed");
+  const handleChange = (e) => {
+    console.log("e", e);
+    // e.target is the element that triggered the event
+    // e.target.value is the value of the element that triggered the event
+    // if the element is a checkbox, the value is e.target.checked
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    // e.target.name is the name of the element that triggered the event
+    const name = e.target.name;
+    console.log("value: " + value, "name: " + name);
+
+    // setFormData is a function that updates the state formData
+    // it takes an object as an argument
+    // the object is the new state we want to set
+    // we use the spread operator to spread the previous state
+    // and then we add the new key value pair
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
+
+  console.log(formData);
 
   return (
     <>
@@ -27,7 +62,7 @@ const OnBoarding = () => {
               name="first_name"
               placeholder="First Name"
               require={true}
-              value={""}
+              value={formData.first_name}
               onChange={handleChange}
             />
 
@@ -39,7 +74,7 @@ const OnBoarding = () => {
                 name="dob_day"
                 placeholder="DD"
                 require={true}
-                value={""}
+                value={formData.dob_day}
                 onChange={handleChange}
               />
 
@@ -49,7 +84,7 @@ const OnBoarding = () => {
                 name="dob_month"
                 placeholder="MM"
                 require={true}
-                value={""}
+                value={formData.dov_month}
                 onChange={handleChange}
               />
 
@@ -57,9 +92,9 @@ const OnBoarding = () => {
                 id="dob_year"
                 type="number"
                 name="dob_year"
-                placeholder="YYYYY"
+                placeholder="YYYY"
                 require={true}
-                value={""}
+                value={formData.dob_year}
                 onChange={handleChange}
               />
             </div>
@@ -73,7 +108,7 @@ const OnBoarding = () => {
                 require={true}
                 value="man"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.gender_identity === "man"} // if the value of the radio button is equal to the value of the state, then it is checked
               />
               <label htmlFor="man-gender-identity">Man</label>
               <input
@@ -83,9 +118,9 @@ const OnBoarding = () => {
                 require={true}
                 value="woman"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.gender_identity === "woman"} // if the value of the radio button is equal to the value of the state, then it is checked
               />
-              <label htmlFor="man-gender-identity">Woman</label>
+              <label htmlFor="woman-gender-identity">Woman</label>
               <input
                 id="more-gender-identity"
                 type="radio"
@@ -93,7 +128,7 @@ const OnBoarding = () => {
                 require={true}
                 value="more"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.gender_identity === "more"} // if the value of the radio button is equal to the value of the state, then it is checked
               />
               <label htmlFor="more-gender-identity">More</label>
             </div>
@@ -104,7 +139,7 @@ const OnBoarding = () => {
               type="checkbox"
               name="show_gender"
               onChange={handleChange}
-              checked={false}
+              checked={formData.show_gender}
             />
 
             <label>Show me</label>
@@ -116,7 +151,7 @@ const OnBoarding = () => {
                 require={true}
                 value="man"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.gender_interest === "man"}
               />
               <label htmlFor="man-gender-interest">Man</label>
               <input
@@ -126,9 +161,9 @@ const OnBoarding = () => {
                 require={true}
                 value="woman"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.gender_interest === "woman"}
               />
-              <label htmlFor="man-gender-interest">Woman</label>
+              <label htmlFor="woman-gender-interest">Woman</label>
               <input
                 id="everyone-gender-interest"
                 type="radio"
@@ -136,9 +171,9 @@ const OnBoarding = () => {
                 require={true}
                 value="everyone"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.gender_interest === "everyone"}
               />
-              <label htmlFor="more-gender-interest">Everyone</label>
+              <label htmlFor="everyone-gender-interest">Everyone</label>
             </div>
 
             <label htmlFor="about">About me</label>
@@ -148,10 +183,10 @@ const OnBoarding = () => {
               name="about"
               required={true}
               placeholder="I like long walks..."
-              value={""}
+              value={formData.about}
               onChange={handleChange}
             />
-            <input type="submit" />
+            <input type="submit" value="Submit" />
           </section>
 
           <section>
@@ -163,7 +198,9 @@ const OnBoarding = () => {
               onChange={handleChange}
               required={true}
             />
-            <div className="photo-container"></div>
+            <div className="photo-container">
+              <img src={formData.url} alt="profile pic review" />
+            </div>
           </section>
         </form>
       </div>

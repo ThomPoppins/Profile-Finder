@@ -257,7 +257,7 @@ nav .logo-container .logo {
   width: 10%;
 }
 
-/* every checked input type radio where checked = true */
+/* every label following a checked input type radio input */
 .onboarding form input[type="radio"]:checked+label {
   border: 2px solid rgb(221, 39, 22);
 }
@@ -270,4 +270,8 @@ nav .logo-container .logo {
 /* when clicking on the submit button in the onboarding page form*/
 .onboarding form input[type="submit"]:active {
   background-color: rgb(226, 115, 155);
+}
+
+.onboarding form .photo-container img {
+  width: 100%;
 }
