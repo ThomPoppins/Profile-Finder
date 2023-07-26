@@ -1,6 +1,5 @@
 server/main.js
 
-server/index.js
 server/index.BACKUP.js
 
 server/.env*
