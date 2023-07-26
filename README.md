@@ -1,6 +1,6 @@
 # Profile-Finder
 
-### -->[Click here](https://profile-finder-beryl.vercel.app/)<-- to see this applications stable version deployed!
+### -->[Click here](https://profile-finder-beryl.vercel.app/)<-- to see this applications latest version deployed!
 
 ## v0.2.0
 
