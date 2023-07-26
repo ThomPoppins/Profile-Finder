@@ -53,7 +53,7 @@ const uri = process.env.MONGODB_URI;
 // create an express app
 const app = express();
 
-// configure express to use CORS
+// configure express to use cors
 app.use(cors());
 // configure express to use json
 app.use(express.json());
