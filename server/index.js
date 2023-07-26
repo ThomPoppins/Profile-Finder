@@ -42,6 +42,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 
 // connection URI to the MongoDB database server
+// TODO: regenerate a password after moving that value to the environment variables
 const uri =
   "mongodb+srv://veldhaasklaas:GeSw6GC7EYyBBl2c@chattutorial.guhnq7u.mongodb.net/?retryWrites=true&w=majority";
 
@@ -78,22 +79,22 @@ app.post("/signup", async (req, res) => {
   try {
     // try to connect to the MongoDB database
     // client.connect();
-    client.connect();
+    await client.connect();
     // pick the database
     const database = client.db("app-data");
     // select the collection users
     const users = database.collection("users");
 
+    // make sure the email is lowercase
+    const sanitizedEmail = email.toLowerCase();
+
     // fetch any user with the same email to check if the user already exists
-    const existingUser = await users.findOne({ email });
+    const existingUser = await users.findOne({ sanitizedEmail });
 
     if (existingUser) {
       console.log("User already exists!");
       return res.status(409).json({ message: "User already exists!" });
     }
-
-    // make sure the email is lowercase
-    const sanitizedEmail = email.toLowerCase();
 
     // create a new user data object
     const data = {
@@ -127,7 +128,9 @@ app.post("/signup", async (req, res) => {
     // the token, user id and email are sent to the client
     // the client stores the token in the local storage
     // TODO: add token to the response
-    res.status(201).json({ token, userId: generatedUserId, sanitizedEmail });
+    res
+      .status(201)
+      .json({ token, userId: generatedUserId, email: sanitizedEmail });
     // res.status(201).json({ userId: generatedUserId, sanitizedEmail });
   } catch (error) {
     // catch any errors and log them to the console
