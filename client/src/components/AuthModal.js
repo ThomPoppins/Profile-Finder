@@ -41,12 +41,16 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         console.log("Passwords do not match");
         return;
       }
+
       // call database and post the email and password
       // response is the response from the database
-      const response = await axios.post("http://localhost:8000/signup", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        process.env.REACT_APP_BACKEND_URL + "/signup",
+        {
+          email,
+          password,
+        }
+      );
 
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
