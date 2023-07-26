@@ -318,38 +318,178 @@ nav .logo-container .logo {
 
 
 /* ----- Dashboard Page ----- */
+/* outer div on dashboard page containing the swipe cards */
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard .swipe-container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* classname of Tindercard component */
 .swipe {
   position: absolute;
 }
 
-.card-container {
-  width: 90vw;
-  max-width: 260px;
-  height: 300px;
+/* contains Tindercard component */
+.dashboard .card-container {
+  width: 400px;
+  height: 650px;
 }
 
+/* child div of Tindercard component */
 .card {
-  position: relative;
   background-color: #fff;
-  width: 80vw;
-  max-width: 260px;
-  height: 300px;
-  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.30);
-  border-radius: 20px;
+  width: 400px;
+  height: 650px;
+  /* box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.20); */
+  border-radius: 30px;
   background-size: cover;
   background-position: center;
 }
 
-.cardContent {
-  width: 100%;
-  height: 100%;
-}
 
 .swipe:last-of-type {}
 
+/* Username on the swipable card */
 .card h3 {
+  margin-top: 0;
+}
+
+.dashboard .swipe-info {
   position: absolute;
   bottom: 0;
+  padding: 10px;
+}
+
+/* ----- Chat Container ----- */
+/* Outer div that contains the whole chat functionality*/
+.chat-container {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 30%;
+  text-align: left;
+  z-index: 1;
+}
+
+/* Header of the chat container where some user info as username will be shown. */
+.chat-container .chat-container-header {
+  background: linear-gradient(45deg, rgb(254, 48, 114), rgb(255, 89, 64));
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Buttons "Matches" and "Chat" in the chat container */
+.chat-container .option {
+  border: none;
+  background-color: rgb(255, 255, 255);
+  border-bottom: solid 4px rgb(243, 33, 33);
+  font-size: 20px;
+  margin: 2px;
+  padding: 10px;
+}
+
+/* change button bottom border color when disabled */
+.chat-container .option:disabled {
+  border-bottom: solid 4px rgb(187, 187, 187);
+}
+
+/* here profile info will be shown in the chat header */
+.chat-container .profile,
+/* the log out icon */
+.chat-container .log-out-icon {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: rgb(255, 255, 255)
+}
+
+.log-out-icon {
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* container containing the profile image in the chat container header */
+.img-container {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  overflow: hidden;
   margin: 10px;
-  color: #fff;
+}
+
+/* profile image in the image container in the chat container header */
+/* set width to 100% of it's parent element */
+.img-container img {
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- Chat Display ----- */
+.chat-display {
+  padding: 20px;
+  height: 60vh;
+  /* this overflow-y will help scroll trough the messages
+  content that doesn't fit the box doesn't flow over, 
+  but a scrollbar will appear and you can scroll through all content */
+  overflow-y: auto;
+}
+
+/* chat input is the textArea and submit button wrapper */
+/* with diaplay flex the elements will be aligned horizontally */
+.chat-input {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
 }

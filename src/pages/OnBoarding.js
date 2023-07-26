@@ -10,7 +10,7 @@ const OnBoarding = () => {
     dob_year: "",
     show_gender: false,
     gender_identity: "man",
-    gender_interest: "woman",
+    gender_interest: "man",
     email: "",
     url: "",
     about: "",
