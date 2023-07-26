@@ -71,7 +71,7 @@ app.post("/signup", async (req, res) => {
   // generate a timestamp-based user id
   const generatedUserId = uuidv1();
 
-  // encrypt the password
+  // encrypt the password with bcrypt
   // the second argument is the number of salt rounds
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -79,17 +79,17 @@ app.post("/signup", async (req, res) => {
     // try to connect to the MongoDB database
     // client.connect();
     client.connect();
-    // define the database
+    // pick the database
     const database = client.db("app-data");
-    // define the collection users as users
+    // select the collection users
     const users = database.collection("users");
 
     // fetch any user with the same email to check if the user already exists
     const existingUser = await users.findOne({ email });
 
     if (existingUser) {
-      // return res.status(409).json({ message: "User already exists!" });
-      return console.log("User already exists!");
+      console.log("User already exists!");
+      return res.status(409).json({ message: "User already exists!" });
     }
 
     // make sure the email is lowercase
@@ -103,7 +103,7 @@ app.post("/signup", async (req, res) => {
     };
 
     // insert the new user into the database
-    const insertedUser = users.insertOne(data);
+    const insertedUser = await users.insertOne(data);
 
     // create a token for the user
     // the token is signed with the user id
@@ -117,13 +117,10 @@ app.post("/signup", async (req, res) => {
     // the server checks if the token is valid
     // if the token is valid, the user is authenticated
     // the token is generated when the user logs in
-    const token = jwt.sign(
-      { user_id: generatedUserId, email: sanitizedEmail },
-      hashedPassword,
-      {
-        expiresIn: 60 * 24,
-      }
-    );
+    //TODO: check: jwt sign the token and send it to the client
+    const token = jwt.sign(insertedUser, sanitizedEmail, {
+      expiresIn: 180, // TODO: set to 24 hours 60 * 24
+    });
 
     // send a response to the client
     // the response contains the token, the user id and the email
