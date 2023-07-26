@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useCookie from "react-use-cookie";
+import Cookies from "universal-cookie";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
   // state variables that store the values of the input fields
@@ -16,25 +16,6 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [error, setError] = useState(null);
   // useNavigate is a function that is used to navigate to a different page
   let navigate = useNavigate();
-  // useCookies is a function that is used to set and remove cookies
-  // cookies are used to store the token
-  // setCookie is a function that is used to set a cookie
-  // removeCookie is a function that is used to remove a cookie
-  // useCookies returns an array with the following values:
-  // 1. the value of the cookie
-  // 2. the function that is used to set the cookie
-  // 3. the function that is used to remove the cookie
-  // TODO: maybe keep the following comment: the following line is used to set the cookies
-  const [cookies, setCookie, removeCookie] = useCookie([
-    "Email",
-    "UserId",
-    "AuthToken",
-  ]);
-  // cookies are used to store the token
-  // the token is used to authenticate the user
-  // the token is sent to the server with every request
-  // the server checks if the token is valid
-  // if the token is valid, the user is authenticated
 
   // TODO: remove the following console.log
   console.log(email, password, confirmPassword);
@@ -77,17 +58,28 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         }
       );
 
-      console.log("BEFORE CREATE COOKIES: ", cookies);
-      // set the cookie values after the response:
-      setCookie("Email", response.data.email);
-      setCookie("UserId", response.data.userId);
-      // the cookies are used to store the token
-      // the token is used to authenticate the user
-      // the token is sent to the server with every request
-      // the server checks if the token is valid
-      // if the token is valid, the user is authenticated
-      setCookie("AuthToken", response.data.token);
-      console.log("AFTER CREATE COOKIES: ", cookies);
+      console.log("RESPONSE.DATA: ", response.data);
+
+      // set the cookies
+      // the cookies are used to keep the user logged in
+      // the cookies are set to expire in 1 day
+      //  TODO: set the cookies to expire in 1 year
+      const cookies = new Cookies();
+      cookies.set("user_id", response.data.user_id, { path: "/" });
+      cookies.set("email", response.data.email, { path: "/" });
+      // the auth_token is used to authenticate the user
+      // the auth_token is stored in the cookies
+      // the auth_token is sent to the backend with every request
+      // the backend checks if the auth_token is valid
+      // if the auth_token is valid, the user is authenticated
+      // the auth_token is generated when the user logs in
+      // the auth_token is generated with the in DB inserted user data and the email
+      // the auth_token is signed with a secret key
+      // the secret key is only known to the server
+      // the secret key is used to verify the auth_token
+      // if the auth_token is not signed with the secret key, it is not valid
+      // the auth_token is sent to the client and stored in the local storage
+      cookies.set("auth_token", response.data.auth_token, { path: "/" });
 
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
