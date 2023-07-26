@@ -33,6 +33,7 @@ const Home = () => {
       />
       <div className="home">
         <h1 className="primary-title">VIND-EXPERT</h1>
+
         <h2 className="secondary-title">Door Thom Veldpaus</h2>
 
         {/* if the user is logged in, the button says "Signout" */}
