@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { useCookie } from "react-use";
+import useCookie from "react-use-cookie";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
   // state variables that store the values of the input fields
