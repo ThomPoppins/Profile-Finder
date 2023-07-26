@@ -1,7 +1,7 @@
 
 # Profile-Finder
 
-### --->[Click here](https://profile-finder-beryl.vercel.app/)<--- to check out this applications' latest version deployed!
+### --->[Click here](https://profile-finder-beryl.vercel.app/)<--- to check out this application latest version deployed!
 
 ## v0.2.0
 
