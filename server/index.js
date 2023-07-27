@@ -111,21 +111,8 @@ app.post("/signup", async (req, res) => {
     const insertedUser = await users.insertOne(data);
 
     // create a token for the user
-    // the token is signed with the user id
-    // the token is valid for 24 hours
-    // the token is signed with a secret key
-    // the secret key is only known to the server
-    // the secret key is used to verify the token
-    // if the token is not signed with the secret key, it is not valid
-    // the token is sent to the client and stored in the local storage
-    // the token is sent to the server with every request
-    // the server checks if the token is valid
-    // if the token is valid, the user is authenticated
-    // the token is generated when the user logs in
-    //TODO: check: jwt sign the token and send it to the client
-    const auth_token = jwt.sign(insertedUser, sanitizedEmail, {
-      expiresIn: 60 * 24, // expires in 24 hours
-    });
+    // the token is used to authenticate the user
+    const auth_token = generateToken(insertedUser);
 
     // send a response to the client
     // the client stores the token in the local storage
@@ -154,9 +141,8 @@ app.post("/login", async (req, res) => {
   // destructure the email and password from the request body
   const { email, password } = req.body;
 
-  // try to connect to the MongoDB database\
+  // try to connect to the MongoDB database
   // if it does work, run the code in the try block
-
   try {
     client.connect(
       async (err) => {
@@ -191,25 +177,16 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ message: "Password is incorrect!" });
           }
           // if the password is correct, create a token for the user
-          // the token is signed with the user id
-          // the token is valid for 24 hours
-          // the token is signed with a secret key
-          // the secret key is only known to the server
-          // the secret key is used to verify the token
-          // if the token is not signed with the secret key, it is not valid
-          // the token is sent to the client and stored in the local storage
-          // the token is sent to the server with every request
-          // the server checks if the token is valid
-          // if the token is valid, the user is authenticated
-          // the token is generated when the user logs in
           auth_token = generateToken(user);
         }); // end findOne
       } // end connect
     ); // end client.connect
+  } catch (err) {
+    console.log(err);
   } finally {
     await client.close();
-  }
-});
+  } // end try/catch/finally
+}); // end app.post
 
 // return all users from the database
 app.get("/users", async (req, res) => {
@@ -245,7 +222,7 @@ app.get("/users", async (req, res) => {
 // the token is sent to the server with every request
 // the server checks if the token is valid
 // if the token is valid, the user is authenticated
-// generate a token    function:
+// generate a token function:
 const generateToken = (user) => {
   const token = jwt.sign(user, process.env.JWT_SECRET, {
     expiresIn: JWT_EXPIRES_IN,
