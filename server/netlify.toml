@@ -20,12 +20,3 @@ NPM_VERSION = "9.7.1"
 
 # NPM dependencies
 NODE_ENV = "devDependencies"
-
-# name of the deploy context
-CONTEXT = "dev"
-
-REPOSITORY_URL = "https://github.com/ThomPoppins/Vind-Expert"
-
-BRANCH = "main"
-
-SITE_NAME = "vind-expert"
