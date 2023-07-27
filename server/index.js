@@ -211,6 +211,7 @@ app.put("/user", async (req, res) => {
     database = client.db("app-data");
     // define the collection as users
     users = database.collection("users");
+
     // update the user
     // the first argument is the query
     // the second argument is the new data
@@ -218,8 +219,9 @@ app.put("/user", async (req, res) => {
     // in this case, we want to return the updated user
     const updatedUser = await users.updateOne(
       { user_id: formData.user_id }, // the query
-      { $set: { ...formData } } // the new data
+      { $set: { ...formData } } // the new data, spread the formData object with ...
     );
+
     // send the updated user back to the client
     res.send(updatedUser);
   } finally {
@@ -229,6 +231,7 @@ app.put("/user", async (req, res) => {
 });
 // END ROUTES
 
+// FUNCTIONS:
 // generate a token for the user
 // the token is signed with the user id
 // the token is valid for 90 days
@@ -247,6 +250,7 @@ const generateToken = (user) => {
   });
   return token;
 };
+// END FUNCTIONS
 
 // start the server and listen on port 8000 for any incoming connection
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

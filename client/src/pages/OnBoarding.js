@@ -11,7 +11,7 @@ const OnBoarding = () => {
 
   // state variable that stores the form data
   const [formData, setFormData] = useState({
-    user_id: "",
+    user_id: cookies.user_id,
     first_name: "",
     dob_day: "",
     dob_month: "",
@@ -19,7 +19,7 @@ const OnBoarding = () => {
     show_gender: false,
     gender_identity: "man",
     gender_interest: "man",
-    email: "",
+    email: cookies.email,
     url: "",
     about: "",
     matches: [],
