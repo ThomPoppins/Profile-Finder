@@ -1,4 +1,4 @@
-# Vind Expert v0.3.0
+# Profile Finder v0.4.0
 
 ### --->[Click here](https://profile-finder-jet.vercel.app/)<--- to check out this application latest version deployed!
 
@@ -8,7 +8,9 @@
 
 > When a user Signs up or logs in then there will be generated a JSON Web Token and that will expire in 90 days.
 
->
+> People will get redirected to the /onboarding page after successful sign up and after they put in the rest of their personal details they will get redirected to the /dashboard page.
+
+> After Sign up the user gets navigated to the /onboarding route and if user fills in additional info on that page, the userdata is saved in the MongoDB collection 'users'.
 
 ## v0.3.0
 

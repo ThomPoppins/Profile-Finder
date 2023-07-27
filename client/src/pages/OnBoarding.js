@@ -1,9 +1,13 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
 import Cookies from "universal-cookie";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // TODO: translate this page to Dutch, or make it dynamic multilingual
 const OnBoarding = () => {
+  // useNavigate is a function that is used to navigate to a different page
+  let navigate = useNavigate();
   // cookies is an object that is used to set cookies
   const cookies = new Cookies();
   // auth_token is a variable that stores the token
@@ -11,7 +15,7 @@ const OnBoarding = () => {
 
   // state variable that stores the form data
   const [formData, setFormData] = useState({
-    user_id: cookies.user_id,
+    user_id: cookies.get("user_id"),
     first_name: "",
     dob_day: "",
     dob_month: "",
@@ -19,15 +23,36 @@ const OnBoarding = () => {
     show_gender: false,
     gender_identity: "man",
     gender_interest: "man",
-    email: cookies.email,
+    email: cookies.get("email"),
     url: "",
     about: "",
     matches: [],
   });
 
   // handleSubmit function to execute when the form is submitted
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     console.log("submitted");
+    e.preventDefault();
+    try {
+      // update logged in user in the database with the form data
+      const response = await axios.put(
+        process.env.REACT_APP_BACKEND_URL + "/user",
+        {
+          formData,
+        }
+      );
+      console.log("FORMDATA:", formData);
+      console.log("RESPONSE:", response);
+      // if the response is successful, 200 or 201, redirect to the dashboard
+      if ((await response.status) === 200 || 201) {
+        navigate("/dashboard");
+      } else {
+        navigate("/onboarding");
+      }
+    } catch (error) {
+      // TODO: better error handling: https://www.developerway.com/posts/how-to-handle-errors-in-react
+      console.log(error);
+    }
   };
 
   // handleChange function to execute when a form field is changed
@@ -63,13 +88,9 @@ const OnBoarding = () => {
   // TODO: add a file upload library
   return (
     <>
-      {/* TODO: add a back button */}
-      {/* TODO: add a progress bar */}
-      {/* TODO: add a modal to show the terms and conditions */}
-      {/* TODO: add a modal to show the privacy policy */}
-      {/* TODO: add a modal to show the cookie policy */}
+      {/* TODO: add a checkbox inside the  sign up and /onboarding form to accept the terms and conditions*/}
+      {/* TODO: navigate trough website in the navigation bar, in something like a menu or buttons*/}
       <Nav minimal={true} setShowModal={() => {}} showModal={false} />
-
       {/* TODO: add a form validation library (Formik) */}
       <div className="onboarding">
         <h2>CREATE ACCOUNT</h2>

@@ -48,7 +48,6 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 // connection URI to the MongoDB database server
-// TODO: regenerate a password after moving that value to the environment variables
 const uri = process.env.MONGODB_URI;
 // create an express app
 const app = express();
@@ -175,7 +174,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// USERS ROUTE:
+// GET ALL USERS ROUTE:
 // return all users from the database
 app.get("/users", async (req, res) => {
   // initialize the MongoClient
@@ -200,9 +199,12 @@ app.get("/users", async (req, res) => {
 
 // UPDATE USER ROUTE:
 // update a specific user from the database
+// the user_id is passed as a query parameter
 app.put("/user", async (req, res) => {
   const client = new MongoClient(uri);
   const formData = req.body.formData;
+
+  console.log("formData: ", formData);
 
   try {
     // try to connect to the MongoDB database
@@ -217,9 +219,12 @@ app.put("/user", async (req, res) => {
     // the second argument is the new data
     // the third argument is the options
     // in this case, we want to return the updated user
-    const updatedUser = await users.updateOne(
+    // update  using the spreak operator to update the user
+    // with the new data from the form
+    const updatedUser = await users.findOneAndUpdate(
       { user_id: formData.user_id }, // the query
-      { $set: { ...formData } } // the new data, spread the formData object with ...
+      { $set: { ...formData } }, // the new data
+      { returnOriginal: false } // the options
     );
 
     // send the updated user back to the client

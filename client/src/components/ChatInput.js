@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const ChatInput = () => {
-  const [textArea, setTextArea] = useState(null);
+  const [textArea, setTextArea] = useState();
 
   return (
     /* Value of this text input field is always the value of const textArea, */
