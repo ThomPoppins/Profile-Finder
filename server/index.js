@@ -58,20 +58,24 @@ app.use(cors());
 app.use(express.json());
 
 // ROUTES:
-// SIGNUP ROUTE:
+
 // when a GET request is made to the homepage, run the callback function
 app.get("/", (req, res) => {
   // send a response to the client
   res.json({ message: "Welcome to the server" });
 });
 
-// the route the signup form send the data to
+// SIGNUP ROUTE:
+// the route the signup form submits to
 app.post("/signup", async (req, res) => {
   // initialize the MongoClient
   const client = new MongoClient(uri);
 
   // destructure the email and password from the request body
   const { email, password } = req.body;
+
+  // make sure the email is lowercase
+  const sanitizedEmail = email.toLowerCase();
 
   // generate a timestamp-based user id
   const generatedUserId = uuidv1();
@@ -89,9 +93,6 @@ app.post("/signup", async (req, res) => {
     // select the collection users
     const users = database.collection("users");
 
-    // make sure the email is lowercase
-    const sanitizedEmail = email.toLowerCase();
-
     // fetch any user with the same email to check if the user already exists
     const existingUser = await users.findOne({ sanitizedEmail });
 
@@ -107,6 +108,8 @@ app.post("/signup", async (req, res) => {
       hashed_password: hashedPassword,
     };
 
+    console.log("New user data:", data);
+
     // insert the new user into the database
     const insertedUser = await users.insertOne(data);
 
@@ -116,7 +119,11 @@ app.post("/signup", async (req, res) => {
 
     // send a response to the client
     // the client stores the token in the local storage
-    res.status(201).json({ auth_token, user_id: generatedUserId });
+    res.status(201).json({
+      auth_token,
+      user_id: generatedUserId,
+      email: sanitizedEmail,
+    });
   } catch (error) {
     // catch any errors and log them to the console
     console.log(error);
@@ -163,7 +170,7 @@ app.post("/login", async (req, res) => {
     // console.log("User logged in!");
     // console.log("auth_token: ", auth_token);
     // send a response to the client
-    // the client stores the token in the local storage
+    // the client stores the token in cookies
     res.status(201).json({ auth_token, user_id: user.user_id });
   } catch (error) {
     // catch any errors and log them to the console

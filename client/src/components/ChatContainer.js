@@ -1,12 +1,12 @@
 import ChatHeader from "./ChatHeader";
 import MatchesDisplay from "./MatchesDisplay";
 import ChatDisplay from "./ChatDisplay";
+import EmptyChatHeader from "./EmptyChatHeader";
 
 const ChatContainer = ({ user }) => {
   return (
     <div className="chat-container">
-      <ChatHeader user={user} />
-
+      {(user && <ChatHeader user={user} />) || <EmptyChatHeader />}
       <div>
         <button className="option">Matches</button>
         <button className="option">Chat</button>

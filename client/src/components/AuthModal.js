@@ -58,15 +58,23 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         }
       );
 
-      // console.log("RESPONSE.DATA: ", response.data);
+      console.log("RESPONSE.DATA: ", response.data);
 
-      // set the cookies
+      // set user data in cookies
       // the cookies are used to keep the user logged in
       // the cookies are set to expire in 1 day
       //  TODO: set the cookies to expire in 1 year
       const cookies = new Cookies();
       cookies.set("user_id", response.data.user_id, { path: "/" });
+      // if (response.data.email) {
       cookies.set("email", response.data.email, { path: "/" });
+      // }
+
+      // TODO: remove the following console.log
+      // console.log("RESPONSE.DATA::::: ", response.data);
+      // console.log("RESPONSE.DATA.EMAIL::::: ", response.data.email);
+      // console.log("COOKIE EMAIL::::: ", cookies.get("email"));
+
       // the auth_token is used to authenticate the user
       // the auth_token is stored in the cookies
       // the auth_token is sent to the backend with every request

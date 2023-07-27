@@ -12,7 +12,6 @@ const OnBoarding = () => {
   const cookies = new Cookies();
   // auth_token is a variable that stores the token
   const auth_token = cookies.get("auth_token");
-
   // state variable that stores the form data
   const [formData, setFormData] = useState({
     user_id: cookies.get("user_id"),

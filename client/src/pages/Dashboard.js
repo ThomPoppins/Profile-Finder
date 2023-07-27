@@ -3,15 +3,22 @@ import { useEffect, useState } from "react";
 import ChatContainer from "../components/ChatContainer";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
 // TODO: write documentation
 const Dashboard = () => {
   // TODO: write documentation
   // state variable that stores the user
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   // create a new instance of the Cookies class
   const cookies = new Cookies();
+
+  if (!cookies.get("auth_token")) {
+    window.location.reload();
+    navigate("/");
+  }
 
   // TODO: write documentation
   // the user state changes when the user_id is saved in cookies
@@ -29,7 +36,9 @@ const Dashboard = () => {
       setUser(response.data);
     } catch (error) {
       // TODO: handle error
+      console.log(error);
       // TODO: redirect to homepage
+      navigate("/");
       console.log(error);
     }
   };
@@ -50,23 +59,23 @@ const Dashboard = () => {
   const characters = [
     {
       name: "Richard Hendricks",
-      url: "https://i.imgur.com/wUgn48u.jpeg",
+      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
     },
     {
       name: "Erlich Bachman",
-      url: "https://i.imgur.com/wUgn48u.jpeg",
+      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
     },
     {
       name: "Monica Hall",
-      url: "https://i.imgur.com/wUgn48u.jpeg",
+      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
     },
     {
       name: "Jared Dunn",
-      url: "https://i.imgur.com/wUgn48u.jpeg",
+      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
     },
     {
       name: "Dinesh Chugtai",
-      url: "https://i.imgur.com/wUgn48u.jpeg",
+      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
     },
   ];
 
@@ -93,11 +102,6 @@ const Dashboard = () => {
   return (
     // here the actual dashboard component is returned
     <div className="dashboard">
-      {/* the first time the dashboard is loaded, the user state is null */}
-      {/* the user state is updated when the user_id is saved in cookies */}
-      {/* the user state is updated when the user state changes */}
-      {/* the user state is updated when the component is updated */}
-      {/* the user state is updated when the component is unmounted */}
       {/* it contains the chat container and the swipe container */}
       <ChatContainer user={user} />
       {/* the swipe container contains the card container */}
@@ -132,8 +136,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      {/* end: user && cookies.get("auth_token") && */}
     </div>
   );
+};
+
+const NavigateToHome = (to) => {
+  console.log(to);
+  const navigate = useNavigate();
+  navigate(to);
 };
 
 export default Dashboard;
