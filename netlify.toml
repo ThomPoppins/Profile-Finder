@@ -1,0 +1,26 @@
+# JSON Web Token secret
+JWT_SECRET=2OXV0xbEcsHISNoEEYYeuBOhSDSJEfB1cXmna9hqfUnzGTLOwWe54KCsrhgz
+
+# JSON Web Token expiration time
+JWT_EXPIRES_IN=90d
+
+# JSON Web Token cookie expiration time
+JWT_COOKIE_EXPIRES_IN=90
+
+# Node.js version
+NODE_VERSION=v16.20.1
+
+# NPM version
+NPM_VERSION=9.7.1
+
+# NPM dependencies
+NODE_ENV=devDependencies
+
+# name of the deploy context
+CONTEXT=dev
+
+REPOSITORY_URL="https://github.com/ThomPoppins/Vind-Expert"
+
+BRANCH=dev
+
+SITE_NAME=vind-expert

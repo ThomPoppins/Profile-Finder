@@ -1,9 +1,48 @@
 import TinderCard from "react-tinder-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatContainer from "../components/ChatContainer";
+import axios from "axios";
+import Cookies from "universal-cookie";
 
 // TODO: write documentation
 const Dashboard = () => {
+  // TODO: write documentation
+  // state variable that stores the user
+  const [user, setUser] = useState(null);
+
+  // create a new instance of the Cookies class
+  const cookies = new Cookies();
+
+  // TODO: write documentation
+  // the user state changes when the user_id is saved in cookies
+  // the user_id is saved in cookies short after when the user logs in
+  // get user_id from cookies
+  const getUser = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_BACKEND_URL + "/user",
+        {
+          params: { user_id: cookies.get("user_id") },
+        }
+      );
+
+      console.log("RESPONSE.DATA: ", response.data);
+    } catch (error) {
+      // TODO: handle error
+      // TODO: redirect to homepage
+      console.log(error);
+    }
+  };
+
+  // useEffect() hook:
+  // call getUser() when the component is mounted
+  // call getUser() when the component is unmounted
+  // call getUser() when the component is updated
+  // call getUser() when the user state changes
+  useEffect(() => {
+    getUser();
+  }, [user]);
+
   // fill {const characters} with sampledata
   const characters = [
     {
