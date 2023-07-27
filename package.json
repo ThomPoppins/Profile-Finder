@@ -1,0 +1,32 @@
+{
+  "name": "vind-expert",
+  "version": "0.5.1",
+  "description": "Vind-Expert v0.5.0 ",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start",
+    "build": "npm run build",
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomPoppins/Vind-Expert.git"
+  },
+  "keywords": [
+    "vind",
+    "expert",
+    "react",
+    "express.js",
+    "mongodb",
+    "javascript"
+  ],
+  "author": "Thom Veldpaus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomPoppins/Vind-Expert/issues"
+  },
+  "homepage": "https://github.com/ThomPoppins/Vind-Expert#readme",
+  "dependencies": {
+    "vercel": "^31.1.1"
+  }
+}

@@ -1,5 +1,9 @@
 # Vind-Expert v0.5.0
 
+## v0.5.1
+
+> Set up Vercel deployment for now
+
 ## v0.5.0
 
 > Conditional rendering of the app's main routes, access is only possible after sign up and log in.
