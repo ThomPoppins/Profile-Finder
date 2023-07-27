@@ -117,9 +117,7 @@ app.post("/signup", async (req, res) => {
 
     // send a response to the client
     // the client stores the token in the local storage
-    res
-      .status(201)
-      .json({ auth_token, user_id: generatedUserId, email: sanitizedEmail });
+    res.status(201).json({ auth_token, user_id: generatedUserId });
   } catch (error) {
     // catch any errors and log them to the console
     console.log(error);
@@ -167,9 +165,7 @@ app.post("/login", async (req, res) => {
     // console.log("auth_token: ", auth_token);
     // send a response to the client
     // the client stores the token in the local storage
-    res
-      .status(201)
-      .json({ auth_token, user_id: user.user_id, email: user.email });
+    res.status(201).json({ auth_token, user_id: user.user_id });
   } catch (error) {
     // catch any errors and log them to the console
     console.log(error);
@@ -201,8 +197,41 @@ app.get("/users", async (req, res) => {
     await client.close();
   }
 });
+
+// UPDATE USER ROUTE:
+// update a specific user from the database
+app.put("/user", async (req, res) => {
+  const client = new MongoClient(uri);
+  const formData = req.body.formData;
+
+  try {
+    // try to connect to the MongoDB database
+    await client.connect();
+    // define the database
+    database = client.db("app-data");
+    // define the collection as users
+    users = database.collection("users");
+
+    // update the user
+    // the first argument is the query
+    // the second argument is the new data
+    // the third argument is the options
+    // in this case, we want to return the updated user
+    const updatedUser = await users.updateOne(
+      { user_id: formData.user_id }, // the query
+      { $set: { ...formData } } // the new data, spread the formData object with ...
+    );
+
+    // send the updated user back to the client
+    res.send(updatedUser);
+  } finally {
+    // and finally close the connection to the database
+    await client.close();
+  }
+});
 // END ROUTES
 
+// FUNCTIONS:
 // generate a token for the user
 // the token is signed with the user id
 // the token is valid for 90 days
@@ -221,6 +250,7 @@ const generateToken = (user) => {
   });
   return token;
 };
+// END FUNCTIONS
 
 // start the server and listen on port 8000 for any incoming connection
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

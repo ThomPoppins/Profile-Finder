@@ -1,6 +1,14 @@
-# Profile-Finder
+# Vind Expert v0.3.0
 
-### --->[Click here](about:blank)<--- to check out this application latest version deployed!
+### --->[Click here](https://profile-finder-jet.vercel.app/)<--- to check out this application latest version deployed!
+
+## v0.4.0
+
+> Finished server API end point /login, users kan now login to te site and will be redirected to the client /dashboard route to start using the app right away!
+
+> When a user Signs up or logs in then there will be generated a JSON Web Token and that will expire in 90 days.
+
+>
 
 ## v0.3.0
 
