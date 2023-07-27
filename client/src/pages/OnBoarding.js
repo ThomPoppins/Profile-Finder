@@ -15,7 +15,7 @@ const OnBoarding = () => {
 
   // state variable that stores the form data
   const [formData, setFormData] = useState({
-    user_id: cookies.user_id,
+    user_id: cookies.get("user_id"),
     first_name: "",
     dob_day: "",
     dob_month: "",
@@ -23,7 +23,7 @@ const OnBoarding = () => {
     show_gender: false,
     gender_identity: "man",
     gender_interest: "man",
-    email: cookies.email,
+    email: cookies.get("email"),
     url: "",
     about: "",
     matches: [],
@@ -41,9 +41,10 @@ const OnBoarding = () => {
           formData,
         }
       );
-      console.log("formData", formData);
+      console.log("FORMDATA:", formData);
+      console.log("RESPONSE:", response);
       // if the response is successful, 200 or 201, redirect to the dashboard
-      if ((await response.data.success) === 200 || 201) {
+      if ((await response.status) === 200 || 201) {
         navigate("/dashboard");
       } else {
         navigate("/onboarding");
