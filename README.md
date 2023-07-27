@@ -1,9 +1,5 @@
 # Vind-Expert v0.4.0
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/13630af4-5abf-42b0-a0db-9a7d95d59160/deploy-status)](https://app.netlify.com/sites/golden-cascaron-a85f4b/deploys)
-
-### --->[Click here](https://profile-finder-jet.vercel.app/)<--- to check out this application latest version deployed!
-
 ## v0.4.0
 
 > Finished server API end point /login, users kan now login to te site and will be redirected to the client /dashboard route to start using the app right away!
