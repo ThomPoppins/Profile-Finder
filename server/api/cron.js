@@ -258,4 +258,16 @@ const generateToken = (user) => {
 // END FUNCTIONS
 
 // start the server and listen on port 8000 for any incoming connection
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// the server is started with the listen method
+// the listen method takes two arguments
+// the first argument is the port number
+// the second argument is a callback function
+// the callback function is called when the server starts
+// the callback function logs a message to the console
+// the message contains the port number the server is running on
+// the server is exported so it can be used in the tests
+// q: how can I make Vercel make deploy the server? On what kind of URL and pot will it be running?
+// a: https://vercel.com/docs/runtimes#advanced-usage/advanced-node-js-usage
+export default app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);
