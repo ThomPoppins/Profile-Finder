@@ -1,5 +1,6 @@
 MONGODB_URI = "mongodb+srv://veldhaasklaas:o59TbydTA9Zd9aNu@chattutorial.guhnq7u.mongodb.net/?retryWrites=true&w=majority"
 
+
 # Backend for the project base URL
 REACT_APP_BACKEND_URL = "https://vind-expertb.netlify.app"
 
