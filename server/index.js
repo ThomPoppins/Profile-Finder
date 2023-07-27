@@ -137,18 +137,6 @@ app.post("/signup", async (req, res) => {
     console.log(error);
   }
 });
-
-// create a route for the login form
-// the route is /login
-// the route accepts POST requests
-// the route accepts a request body
-// the request body contains the email and password
-// the route is asynchronous because it makes a request to the database
-app.post("/login", async (req, res) => {
-  const client = new MongoClient(uri);
-  const { email, password } = req.body;
-});
-
 // return all users from the database
 app.get("/users", async (req, res) => {
   // initialize the MongoClient

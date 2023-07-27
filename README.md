@@ -1,7 +1,20 @@
-
 # Profile-Finder
 
-### --->[Click here](https://profile-finder-beryl.vercel.app/)<--- to check out this application latest version deployed!
+### --->[Click here](about:blank)<--- to check out this application latest version deployed!
+
+## v0.3.0
+
+> Redirect to /onboarding after Sign Up form when success
+
+> Create backend /login API end point
+
+> Vercel.com cronjob configured that Vercel start server/api/cronjob, I hope, so the frontend and backend both can be deployed.
+
+> AuthToken now generated and saved inside a auth_token cookie
+
+> AuthModal test written by Copilot.
+
+> Set up the environment files for prod and dev environment
 
 ## v0.2.0
 

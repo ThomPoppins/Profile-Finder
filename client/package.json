@@ -1,6 +1,6 @@
 {
-  "name": "Profile-Finder Frontend",
-  "version": "0.2.0",
+  "name": "Profile Finder",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@react-spring/web": "9.5.5",
