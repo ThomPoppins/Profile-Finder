@@ -48,7 +48,6 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 // connection URI to the MongoDB database server
-// TODO: regenerate a password after moving that value to the environment variables
 const uri = process.env.MONGODB_URI;
 // create an express app
 const app = express();

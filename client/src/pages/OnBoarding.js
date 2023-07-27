@@ -50,7 +50,7 @@ const OnBoarding = () => {
         navigate("/onboarding");
       }
     } catch (error) {
-      // TODO: better error handling
+      // TODO: better error handling: https://www.developerway.com/posts/how-to-handle-errors-in-react
       console.log(error);
     }
   };
@@ -88,13 +88,9 @@ const OnBoarding = () => {
   // TODO: add a file upload library
   return (
     <>
-      {/* TODO: add a back button */}
-      {/* TODO: add a progress bar */}
-      {/* TODO: add a modal to show the terms and conditions */}
-      {/* TODO: add a modal to show the privacy policy */}
-      {/* TODO: add a modal to show the cookie policy */}
+      {/* TODO: add a checkbox inside the  sign up and /onboarding form to accept the terms and conditions*/}
+      {/* TODO: navigate trough website in the navigation bar, in something like a menu or buttons*/}
       <Nav minimal={true} setShowModal={() => {}} showModal={false} />
-
       {/* TODO: add a form validation library (Formik) */}
       <div className="onboarding">
         <h2>CREATE ACCOUNT</h2>

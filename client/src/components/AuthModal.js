@@ -6,13 +6,12 @@ import Cookies from "universal-cookie";
 const AuthModal = ({ setShowModal, isSignUp }) => {
   // state variables that store the values of the input fields
   // they are updated when the input fields are changed
-  // TODO: maybe keep the following commend: they are used to make a POST request to the backend
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   // state variable that stores the error message
   // it is updated when the passwords don't match
-  // TODO: better error handling
+  // TODO: better error handling: https://www.developerway.com/posts/how-to-handle-errors-in-react
   const [error, setError] = useState(null);
   // useNavigate is a function that is used to navigate to a different page
   let navigate = useNavigate();
@@ -90,7 +89,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
     } catch (error) {
       // if the response is not successful, catch the error
       // log the error to the console
-      // TODO: better error handling.
+      // TODO: better error handling. https://www.developerway.com/posts/how-to-handle-errors-in-react
       console.log(error);
     }
   };
