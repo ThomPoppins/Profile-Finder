@@ -182,6 +182,9 @@ app.get("/user", async (req, res) => {
   // destructure the user_id from the request query
   const { user_id } = req.query;
 
+  // TODO: remove console.log statements
+  console.log("user_id: ", user_id);
+
   // try to connect to the MongoDB database
   try {
     await client.connect();

@@ -25,8 +25,8 @@ const Dashboard = () => {
           params: { user_id: cookies.get("user_id") },
         }
       );
-
-      console.log("RESPONSE.DATA: ", response.data);
+      // TODO: handle response
+      setUser(response.data);
     } catch (error) {
       // TODO: handle error
       // TODO: redirect to homepage
@@ -41,7 +41,10 @@ const Dashboard = () => {
   // call getUser() when the user state changes
   useEffect(() => {
     getUser();
-  }, [user]);
+  }, []);
+
+  // TODO: remove console.log()
+  console.log("USER: ", user);
 
   // fill {const characters} with sampledata
   const characters = [
@@ -90,8 +93,13 @@ const Dashboard = () => {
   return (
     // here the actual dashboard component is returned
     <div className="dashboard">
+      {/* the first time the dashboard is loaded, the user state is null */}
+      {/* the user state is updated when the user_id is saved in cookies */}
+      {/* the user state is updated when the user state changes */}
+      {/* the user state is updated when the component is updated */}
+      {/* the user state is updated when the component is unmounted */}
       {/* it contains the chat container and the swipe container */}
-      <ChatContainer />
+      <ChatContainer user={user} />
       {/* the swipe container contains the card container */}
       <div className="swipe-container">
         {/* the card container contains the cards */}

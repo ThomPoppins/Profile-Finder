@@ -400,6 +400,29 @@ nav .logo-container .logo {
   justify-content: space-between;
 }
 
+.chat-container .chat-container-header .spacer {
+  width: 50%;
+  display: flex;
+}
+
+.chat-container .chat-container-header .profile {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.chat-container .chat-container-header .log-out-icon-wrapper {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: 0;
+}
+
 /* Buttons "Matches" and "Chat" in the chat container */
 .chat-container .option {
   border: none;
