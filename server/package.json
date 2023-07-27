@@ -1,6 +1,6 @@
 {
-  "name": "Profile Finder Backend",
-  "version": "0.4.0",
+  "name": "Vind-Expert Backend",
+  "version": "0.5.0",
   "description": "Admin backend",
   "main": "index.js",
   "scripts": {

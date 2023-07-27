@@ -136,15 +136,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      {/* end: user && cookies.get("auth_token") && */}
     </div>
   );
-};
-
-const NavigateToHome = (to) => {
-  console.log(to);
-  const navigate = useNavigate();
-  navigate(to);
 };
 
 export default Dashboard;

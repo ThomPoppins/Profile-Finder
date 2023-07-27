@@ -1,4 +1,14 @@
-# Vind-Expert v0.4.0
+# Vind-Expert v0.5.0
+
+## v0.5.0
+
+> Conditional rendering of the app's main routes, access is only possible after sign up and log in.
+
+> After sign up user authorize cookies will be set, and when you login you have a auth_token and a user_id. When you log off those cookies are destroyed and you are unauthorized again.
+
+> Hard coded values are now in an environment file, out of sight out of mind.
+
+> Get user data from the server /user API endpoint, after sending a request with at least the user_id, you get back the complete document from the users collection on MongoDB.
 
 ## v0.4.0
 
