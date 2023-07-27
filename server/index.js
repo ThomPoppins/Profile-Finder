@@ -317,5 +317,6 @@ const generateToken = (user) => {
 };
 // END FUNCTIONS
 
+app.use(cors());
 // start the server and listen on port 8000 for any incoming connection
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
