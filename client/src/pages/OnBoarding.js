@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
+import Cookies from "universal-cookie";
 
 // TODO: translate this page to Dutch, or make it dynamic multilingual
-
 const OnBoarding = () => {
   const [formData, setFormData] = useState({
     user_id: "",

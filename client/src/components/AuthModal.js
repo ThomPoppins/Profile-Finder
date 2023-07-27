@@ -32,7 +32,6 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const handleSubmit = async (e) => {
     // prevent the default behaviour of the form
     e.preventDefault();
-
     // check if the passwords match if it is a signup
     // if they don't, set an error message
     // try to make a POST request to the backend
@@ -60,7 +59,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         }
       );
 
-      console.log("RESPONSE.DATA: ", response.data);
+      // console.log("RESPONSE.DATA: ", response.data);
 
       // set the cookies
       // the cookies are used to keep the user logged in
@@ -69,6 +68,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       const cookies = new Cookies();
       cookies.set("user_id", response.data.user_id, { path: "/" });
       cookies.set("email", response.data.email, { path: "/" });
+
       // the auth_token is used to authenticate the user
       // the auth_token is stored in the cookies
       // the auth_token is sent to the backend with every request
@@ -83,6 +83,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // the auth_token is sent to the client and stored in the local storage
       cookies.set("auth_token", response.data.auth_token, { path: "/" });
 
+      console.log(response.status);
       // if the response is successful, redirect user to /onboarding
       // 201 is the success status code
       if (response.status === 201 && isSignUp) navigate("/onboarding");
