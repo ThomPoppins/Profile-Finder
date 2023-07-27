@@ -1,4 +1,4 @@
-# Profile Finder v0.4.0
+# Vind-Expert v0.4.0
 
 ### --->[Click here](https://profile-finder-jet.vercel.app/)<--- to check out this application latest version deployed!
 
