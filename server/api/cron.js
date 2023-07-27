@@ -138,15 +138,77 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// create a route for the login form
-// the route is /login
-// the route accepts POST requests
-// the route accepts a request body
-// the request body contains the email and password
-// the route is asynchronous because it makes a request to the database
+// the route the login form send the data to
+// the login form sends the email and password to the server
+// the server checks if the user exists in the database
+// if the user exists, the server generates a token for the user
+// the token is sent to the client
+// the client stores the token in the local storage
+// the client sends the token to the server with every request
+// the server checks if the token is valid
+// if the token is valid, the user is authenticated
 app.post("/login", async (req, res) => {
+  // initialize the MongoClient
   const client = new MongoClient(uri);
+
+  // destructure the email and password from the request body
   const { email, password } = req.body;
+
+  // try to connect to the MongoDB database\
+  // if it does work, run the code in the try block
+
+  try {
+    client.connect(
+      async (err) => {
+        if (err) throw err;
+        console.log("Connected successfully to server");
+        // define the database
+        database = client.db("app-data");
+        // define the collection as users
+        users = database.collection("users");
+        // make sure the email is lowercase
+        const sanitizedEmail = email.toLowerCase();
+        // fetch the user with the same email
+        users.findOne({ sanitizedEmail }, async (err, user) => {
+          // if there is an error, throw the error
+          if (err) throw err;
+          // if the user does not exist, return an error
+          if (!user) {
+            // TODO: remove the console.log
+            console.log("User does not exist!");
+
+            // return an 404 error
+            return res.status(404).json({ message: "User does not exist!" });
+          }
+          // if the user exists, compare the password with the hash
+          const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+          );
+          // if the password is not correct, return an error
+          if (!isPasswordCorrect) {
+            console.log("Password is incorrect!");
+            return res.status(401).json({ message: "Password is incorrect!" });
+          }
+          // if the password is correct, create a token for the user
+          // the token is signed with the user id
+          // the token is valid for 24 hours
+          // the token is signed with a secret key
+          // the secret key is only known to the server
+          // the secret key is used to verify the token
+          // if the token is not signed with the secret key, it is not valid
+          // the token is sent to the client and stored in the local storage
+          // the token is sent to the server with every request
+          // the server checks if the token is valid
+          // if the token is valid, the user is authenticated
+          // the token is generated when the user logs in
+          auth_token = generateToken(user);
+        }); // end findOne
+      } // end connect
+    ); // end client.connect
+  } finally {
+    await client.close();
+  }
 });
 
 // return all users from the database
@@ -171,6 +233,25 @@ app.get("/users", async (req, res) => {
   }
 });
 // END ROUTES
+
+// generate a token for the user
+// the token is signed with the user id
+// the token is valid for 90 days
+// the token is signed with a secret key
+// the secret key is only known to the server
+// the secret key is used to verify the token
+// if the token is not signed with the secret key, it is not valid
+// the token is sent to the client and stored in the local storage
+// the token is sent to the server with every request
+// the server checks if the token is valid
+// if the token is valid, the user is authenticated
+// generate a token    function:
+const generateToken = (user) => {
+  const token = jwt.sign(user, process.env.JWT_SECRET, {
+    expiresIn: JWT_EXPIRES_IN,
+  });
+  return token;
+};
 
 // start the server and listen on port 8000 for any incoming connection
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
