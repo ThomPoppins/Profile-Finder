@@ -4,6 +4,12 @@ import Cookies from "universal-cookie";
 
 // TODO: translate this page to Dutch, or make it dynamic multilingual
 const OnBoarding = () => {
+  // cookies is an object that is used to set cookies
+  const cookies = new Cookies();
+  // auth_token is a variable that stores the token
+  const auth_token = cookies.get("auth_token");
+
+  // state variable that stores the form data
   const [formData, setFormData] = useState({
     user_id: "",
     first_name: "",
@@ -41,17 +47,30 @@ const OnBoarding = () => {
     // the object is the new state we want to set
     // we use the spread operator to spread the previous state
     // and then we add the new key value pair
+    // brackets are used to make the key dynamic
+    // [name] is the name of the element that triggered the event
+    // value is the value of the element that triggered the event
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
+  // TODO: remove the following console.log
   console.log(formData);
 
+  // TODO: add a date picker library
+  // TODO: add a file upload library
   return (
     <>
+      {/* TODO: add a back button */}
+      {/* TODO: add a progress bar */}
+      {/* TODO: add a modal to show the terms and conditions */}
+      {/* TODO: add a modal to show the privacy policy */}
+      {/* TODO: add a modal to show the cookie policy */}
       <Nav minimal={true} setShowModal={() => {}} showModal={false} />
+
+      {/* TODO: add a form validation library (Formik) */}
       <div className="onboarding">
         <h2>CREATE ACCOUNT</h2>
 
@@ -201,7 +220,9 @@ const OnBoarding = () => {
               required={true}
             />
             <div className="photo-container">
-              <img src={formData.url} alt="profile pic review" />
+              {formData.url && (
+                <img src={formData.url} alt="profile pic preview" />
+              )}
             </div>
           </section>
         </form>
