@@ -174,6 +174,56 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// GET USER ROUTE:
+// return the user data from the database
+app.get("/user", async (req, res) => {
+  // initialize the MongoClient
+  const client = new MongoClient(uri);
+  // destructure the user_id from the request query
+  const { user_id } = req.query;
+
+  // try to connect to the MongoDB database
+  try {
+    await client.connect();
+    // define the database
+    const database = client.db("app-data");
+    // define the collection as users
+    const users = database.collection("users");
+    // find the user with the same user_id
+    const user = await users.findOne({ user_id });
+    console.log("user: ", user);
+    // if the user does not exist, send an error message
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+
+    // send the user data to the client
+
+    // TODO: send the user data without the hashed password
+    // the client does not need to know the hashed password
+    // TODO: remove console.log statements
+    console.log("BEFORE:::::: ", user);
+    user.hashed_password = undefined;
+    user._id = undefined;
+    console.log("AFTER:::::: ", user);
+    // TODO: send the user data without the auth_token
+    // the auth_token is only used to authenticate the user
+    // the client does not need to know the auth_token
+    // the client only needs to know the user_id
+    // the user_id is used to fetch the user data from the database
+    // TODO: test if {res.status(200).json(user)}; is better
+    res.send(user);
+  } catch (error) {
+    // catch any errors and log them to the console
+    console.log(error);
+    // TODO: better error handling https://www.developerway.com/posts/how-to-handle-errors-in-react
+    // TODO: send an error message to the client
+  } finally {
+    await client.close();
+    console.log("Connection to the database closed!");
+  }
+});
+
 // GET ALL USERS ROUTE:
 // return all users from the database
 app.get("/users", async (req, res) => {
