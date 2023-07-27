@@ -17,6 +17,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {!cookies.get("auth_token") && <Route path="/" element={<Home />} />}
         <Route path="/" element={<Home />} />
         {cookies.get("auth_token") && (
           <Route path="/dashboard" element={<Dashboard />} />
