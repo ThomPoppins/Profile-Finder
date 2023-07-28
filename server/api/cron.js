@@ -1,3 +1,21 @@
+/**
+ * This file contains the server-side code for handling cron jobs.
+ * It exports a function that handles incoming requests and performs
+ * various tasks such as connecting to the MongoDB database, encrypting
+ * passwords, and allowing cross-origin requests. It also defines routes
+ * for handling GET and POST requests, including a signup route that
+ * creates a new user in the database.
+ *
+ * @module cron
+ * @requires dotenv
+ * @requires express
+ * @requires mongodb
+ * @requires uuid
+ * @requires jsonwebtoken
+ * @requires cors
+ * @requires bcrypt
+ */
+
 export default function handler(req, res) {
   // load environment variables from the .env file
   require("dotenv").config();
@@ -327,3 +345,4 @@ export default function handler(req, res) {
 
   res.status(200).end("Hello Cron!");
 }
+
