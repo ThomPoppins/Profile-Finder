@@ -1,4 +1,8 @@
-# Vind-Expert v0.5.0
+# Vind-Expert v0.6.0
+
+> Break up the application file in server, exported users routes to /server/routes/users and const usersRouter = require(./routes/userRouter) in the application file index.js. Then app.use("/", usersRouter) to bind all routes of usersRouter to "/" path.
+
+> New utils file /server/utils/jwt.js for generating and verifying JSON Web Tokens. Used in /server/routes/users.js.
 
 ## v0.5.1
 
