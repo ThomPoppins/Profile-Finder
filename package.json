@@ -1,6 +1,6 @@
 {
   "name": "vind-expert",
-  "version": "v0.5.1",
+  "version": "v0.6.0",
   "description": "Vind-Expert v0.5.0 ",
   "main": "index.js",
   "scripts": {
