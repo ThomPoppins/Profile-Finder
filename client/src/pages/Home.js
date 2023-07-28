@@ -32,6 +32,8 @@ const Home = () => {
         setIsSignUp={setIsSignUp}
       />
       <div className="home">
+        {/* TODO: Ask Copilot: I want to implement Three.js animations on the title in Home.js */}
+        {/* TODO: How can I add interactivity to my Three.js scene? */}
         <h1 className="primary-title">VIND-EXPERT</h1>
         <h2 className="secondary-title">Door Thom Veldpaus</h2>
 
