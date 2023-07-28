@@ -32,6 +32,7 @@ const OnBoarding = () => {
   const handleSubmit = async (e) => {
     console.log("submitted");
     e.preventDefault();
+    console.log("FORMDATA BEFORE /user PUT API CALL:::::::", formData);
     try {
       // update logged in user in the database with the form data
       const response = await axios.put(
@@ -40,7 +41,7 @@ const OnBoarding = () => {
           formData,
         }
       );
-      console.log("FORMDATA:", formData);
+      console.log("FORMDATA AFTER /user PUT API CALL::::::::", formData);
       console.log("RESPONSE:", response);
       // if the response is successful, 200 or 201, redirect to the dashboard
       if ((await response.status) === 200 || 201) {

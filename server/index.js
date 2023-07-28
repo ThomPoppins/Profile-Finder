@@ -84,6 +84,8 @@ app.post("/signup", async (req, res) => {
   // make sure the email is lowercase
   const sanitizedEmail = email.toLowerCase();
 
+  console.log("SANITIZED EMAIL:", sanitizedEmail);
+
   // generate a timestamp-based user id
   const generatedUserId = uuidv1();
 
