@@ -1,3 +1,11 @@
+/**
+ * This file contains the server-side code for the Vind-Expert app.
+ * It sets up an Express app, connects to a MongoDB database, and defines routes for handling HTTP requests.
+ * The app allows users to sign up, log in, and access protected resources.
+ * It uses various packages such as bcrypt, jsonwebtoken, and cors to handle authentication and authorization.
+ * The server runs on port 8000 and accepts cross-origin requests from the client running on port 3000.
+ */
+
 // load environment variables from the .env file
 require("dotenv").config();
 
@@ -12,13 +20,12 @@ const { MongoClient } = require("mongodb");
 
 // use uuid to generate a unique id for the user
 // uuidv1 is a function that generates a unique id
-// v1 stands for version 1
+// v2 stands for version 2
 // version 1 is a timestamp-based id
 const { v1: uuidv1 } = require("uuid");
 
 // jsonwebtoken is used to create a token for the user
 const jwt = require("jsonwebtoken");
-
 // cors is used to allow cross-origin requests
 // the client runs on localhost:3000
 // the server runs on localhost:8000
@@ -209,19 +216,17 @@ app.get("/user", async (req, res) => {
 
     // send the user data to the client
 
-    // TODO: send the user data without the hashed password
-    // the client does not need to know the hashed password
-    // TODO: remove console.log statements
-    console.log("BEFORE:::::: ", user);
+    
+    // the client does not need to know the hashed_password or _id
     user.hashed_password = undefined;
     user._id = undefined;
-    console.log("AFTER:::::: ", user);
+
     // TODO: send the user data without the auth_token
     // the auth_token is only used to authenticate the user
     // the client does not need to know the auth_token
     // the client only needs to know the user_id
     // the user_id is used to fetch the user data from the database
-    // TODO: test if {res.status(200).json(user)}; is better
+    // send the user data to the client
     res.send(user);
   } catch (error) {
     // catch any errors and log them to the console
@@ -229,7 +234,9 @@ app.get("/user", async (req, res) => {
     // TODO: better error handling https://www.developerway.com/posts/how-to-handle-errors-in-react
     // TODO: send an error message to the client
   } finally {
+    // close the connection to the database
     await client.close();
+    // TODO: remove console.log statements
     console.log("Connection to the database closed!");
   }
 });

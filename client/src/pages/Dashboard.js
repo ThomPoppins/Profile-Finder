@@ -5,7 +5,6 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 
-// TODO: write documentation
 const Dashboard = () => {
   // TODO: write documentation
   // state variable that stores the user
@@ -15,15 +14,9 @@ const Dashboard = () => {
   // create a new instance of the Cookies class
   const cookies = new Cookies();
 
-  if (!cookies.get("auth_token")) {
-    window.location.reload();
-    navigate("/");
-  }
-
-  // TODO: write documentation
   // the user state changes when the user_id is saved in cookies
   // the user_id is saved in cookies short after when the user logs in
-  // get user_id from cookies
+  // get user_id from cookies and use it as filter to get the user from the backend
   const getUser = async () => {
     try {
       const response = await axios.get(
@@ -32,14 +25,12 @@ const Dashboard = () => {
           params: { user_id: cookies.get("user_id") },
         }
       );
-      // TODO: handle response
       setUser(response.data);
     } catch (error) {
       // TODO: handle error
       console.log(error);
-      // TODO: redirect to homepage
+      // redirect to homepage
       navigate("/");
-      console.log(error);
     }
   };
 
@@ -47,7 +38,8 @@ const Dashboard = () => {
   // call getUser() when the component is mounted
   // call getUser() when the component is unmounted
   // call getUser() when the component is updated
-  // call getUser() when the user state changes
+  // the component is updated when the user state changes
+  // the user state changes when the user_id is saved in cookies
   useEffect(() => {
     getUser();
   }, []);
@@ -55,7 +47,7 @@ const Dashboard = () => {
   // TODO: remove console.log()
   console.log("USER: ", user);
 
-  // fill {const characters} with sampledata
+  // sample data for the cards
   const characters = [
     {
       name: "Richard Hendricks",
@@ -79,19 +71,17 @@ const Dashboard = () => {
     },
   ];
 
-  // save last direction
+  // save last swipe direction in state
   const [lastDirection, setLastDirection] = useState();
 
-  // TODO: write documentation
   // arrow function with 2 parameters (direction, nameToDelete)
-  // console.log() to log which name will be deleted
+  // console.log() to log which name will be deleted, but not really (yet)
   // setLastDirection() to save the direction
   const swiped = (direction, nameToDelete) => {
     console.log("removing: " + nameToDelete);
     setLastDirection(direction);
   };
 
-  // TODO: write documentation
   // arrow function with 1 parameter (name)
   // console.log() to log which name left the screen
   const outOfFrame = (name) => {
@@ -131,6 +121,7 @@ const Dashboard = () => {
           ))}
           {/* the swipe-info container contains the last direction */}
           {/* the last direction is saved in the state */}
+          {/* TODO: remove tekst "You swiped right!" etc. */}
           <div className="swipe-info">
             {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
           </div>

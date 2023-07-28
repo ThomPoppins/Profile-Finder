@@ -15,20 +15,17 @@ const ChatHeader = ({ user }) => {
     // TODO: q: is there a way to hide the Log out button when user is not logged in without window.location.reload()?
     // a: yes, by using conditional rendering in ChatContainer.js
 
+    // TODO: decide over redirect to homepage OR window refresh
     // window.location.reload();
     // TODO: decide over redirect to homepage
     navigate("/");
   };
 
-  // TODO: decide over redirect to homepage OR not
-  // when user is not logged in, redirect to homepage
-  if (cookies.get("auth_token") === undefined) {
-    navigate("/");
-  }
-
   return (
     <div className="chat-container-header">
+      {/* TODO: remove console.log */}
       {console.log("USER:", user)}
+      {/* if user: render user profile pic and name */}
       {user && (
         <div className="profile">
           <div className="img-container">
