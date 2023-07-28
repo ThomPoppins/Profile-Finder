@@ -149,6 +149,10 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   // make sure the email is lowercase
   const sanitizedEmail = email.toLowerCase();
+  console.log(
+    "SANITIZED EMAIL IN LOGIN API AFTER GETTING IT FROM REQUEST BODY:::::::::::",
+    sanitizedEmail
+  );
   // try to connect to the MongoDB database
   // if it does work, run the code in the try block
   // finally, close the connection to the database
@@ -180,7 +184,9 @@ app.post("/login", async (req, res) => {
     // console.log("auth_token: ", auth_token);
     // send a response to the client
     // the client stores the token in cookies
-    res.status(201).json({ auth_token, user_id: user.user_id });
+    res
+      .status(201)
+      .json({ auth_token, user_id: user.user_id, email: sanitizedEmail });
   } catch (error) {
     // catch any errors and log them to the console
     console.log(error);
@@ -218,7 +224,6 @@ app.get("/user", async (req, res) => {
 
     // send the user data to the client
 
-    
     // the client does not need to know the hashed_password or _id
     user.hashed_password = undefined;
     user._id = undefined;
@@ -243,25 +248,25 @@ app.get("/user", async (req, res) => {
   }
 });
 
-// GET ALL USERS ROUTE:
+// GET GENDERED USERS ROUTE:
 // return all users from the database
-app.get("/users", async (req, res) => {
+app.get("/gendered-users", async (req, res) => {
   // initialize the MongoClient
   const client = new MongoClient(uri);
 
   // try to connect to the MongoDB database
   // if it does work, run the code in the try block
-  // finally, close the connection to the database
   try {
     await client.connect();
     // define the database
     database = client.db("app-data");
     // define the collection as users
     users = database.collection("users");
-    // find all the documents in the collection
+    // find all the documents in the collection with empty find() method and put them in a array
     const returnedUsers = await users.find().toArray();
     res.send(returnedUsers);
   } finally {
+    // finally, close the connection to the database
     await client.close();
   }
 });

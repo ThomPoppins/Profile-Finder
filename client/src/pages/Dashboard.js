@@ -9,6 +9,7 @@ const Dashboard = () => {
   // TODO: write documentation
   // state variable that stores the user
   const [user, setUser] = useState(null);
+  const [genderedUsers, setGenderedUsers] = useState(null);
   const navigate = useNavigate();
 
   // create a new instance of the Cookies class
@@ -34,18 +35,32 @@ const Dashboard = () => {
     }
   };
 
+  const getGenderedUsers = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_BACKEND_URL + "/gendered-users",
+        {
+          params: {
+            gender: user?.gender_interest,
+          },
+        }
+      );
+      setGenderedUsers(response.data);
+    } catch (error) {
+      // TODO: handle error: https://www.developerway.com/posts/how-to-handle-errors-in-react
+      console.log(error);
+    }
+  };
+
   // useEffect() hook:
   // call getUser() when the component is mounted
   // call getUser() when the component is unmounted
   // call getUser() when the component is updated
-  // the component is updated when the user state changes
   // the user state changes when the user_id is saved in cookies
   useEffect(() => {
     getUser();
+    getGenderedUsers();
   }, []);
-
-  // TODO: remove console.log()
-  console.log("USER: ", user);
 
   // sample data for the cards
   const characters = [

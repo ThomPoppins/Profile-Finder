@@ -50,6 +50,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // the backend will return a response
       // the response contains the status code and the data
       // the data contains the user_id, email and auth_token
+      console.log("EMAIL AFTER LOGIN FORM SUBMIT:::::::::::::::: ", email);
       const response = await axios.post(
         process.env.REACT_APP_BACKEND_URL + `/${isSignUp ? "signup" : "login"}`,
         {
@@ -58,12 +59,14 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         }
       );
 
-      console.log("RESPONSE.DATA: ", response.data);
+
+      console.log("RESPONSE.DATA AFTER LOGIN CALL TO SERVER API:::::::::::::: ", response.data);
 
       // set user data in cookies
       // the cookies are used to keep the user logged in
       // the cookies are set to expire in 1 day
       //  TODO: set the cookies to expire in 1 year
+      console.log("RESPONSE.DATA.EMAIL BEFORE SETTING COOKIE::::: ", response.data.user_id);
       const cookies = new Cookies();
       cookies.set("user_id", response.data.user_id, { path: "/" });
       // if (response.data.email) {
