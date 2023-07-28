@@ -1,10 +1,27 @@
-// USERS ROUTE HANDLERS:
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const { v1: uuidv1 } = require("uuid");
+const { MongoClient } = require("mongodb");
+const { generateToken } = require("../utils/jwt");
+require("dotenv").config();
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
+// use CORS on router
+router.use(cors());
+
+// use the body-parser middleware
+router.use(bodyParser.json());
 
 // SIGNUP ROUTE:
 // the route the signup form submits to
-app.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   // initialize the MongoClient
-  const client = new MongoClient(uri);
+  const client = new MongoClient(process.env.MONGODB_URI);
+
+  console.log("Signup route hit");
+  console.log("Request body:", req.body);
 
   // destructure the email and password from the request body
   const { email, password } = req.body;
@@ -69,10 +86,10 @@ app.post("/signup", async (req, res) => {
 
 // LOGIN ROUTE:
 // the route the login form send the data to
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   console.log("Login route hit");
   // initialize the MongoClient
-  const client = new MongoClient(uri);
+  const client = new MongoClient(process.env.MONGODB_URI);
   // destructure the email and password from the request body
   const { email, password } = req.body;
   // make sure the email is lowercase
@@ -126,9 +143,9 @@ app.post("/login", async (req, res) => {
 
 // GET USER ROUTE:
 // return the user data from the database
-app.get("/user", async (req, res) => {
+router.get("/user", async (req, res) => {
   // initialize the MongoClient
-  const client = new MongoClient(uri);
+  const client = new MongoClient(process.env.MONGODB_URI);
   // destructure the user_id from the request query
   const { user_id } = req.query;
 
@@ -178,9 +195,9 @@ app.get("/user", async (req, res) => {
 
 // GET GENDERED USERS ROUTE:
 // return all users from the database
-app.get("/gendered-users", async (req, res) => {
+router.get("/gendered-users", async (req, res) => {
   // initialize the MongoClient
-  const client = new MongoClient(uri);
+  const client = new MongoClient(process.env.MONGODB_URI);
 
   // try to connect to the MongoDB database
   // if it does work, run the code in the try block
@@ -202,8 +219,8 @@ app.get("/gendered-users", async (req, res) => {
 // UPDATE USER ROUTE:
 // update a specific user from the database
 // the user_id is passed as a query parameter
-app.put("/user", async (req, res) => {
-  const client = new MongoClient(uri);
+router.put("/user", async (req, res) => {
+  const client = new MongoClient(process.env.MONGODB_URI);
   const formData = req.body.formData;
 
   console.log("formData: ", formData);
@@ -236,3 +253,5 @@ app.put("/user", async (req, res) => {
     await client.close();
   }
 });
+
+module.exports = router;

@@ -39,7 +39,7 @@ module.exports = verifyToken;
 
 // In this example, we first import the jsonwebtoken library using the require() function. We then import the authConfig.js file using the require() function. We define the verifyToken function, which takes the token as an argument. The verifyToken function uses the jwt.verify() method to verify the token with the secret key from our authConfig.js file. It then returns the user's ID if the token is valid, or null if the token is invalid.
 
-// Once you've defined your generateToken.js and verifyToken.js files, you can import them into other files in your application using the require() function, like this:
+// Once you've defined your generateToken.js and verifyToken.js files, you can import them into other files in your routerlication using the require() function, like this:
 
 // /SERVER/INDEX.JS EXAMPLE:
 const generateToken = require("./utils/generateToken");
@@ -52,7 +52,7 @@ const userId = verifyToken(token);
 
 // In this example, we first import the generateToken.js and verifyToken.js files using the require() function. We then use the generateToken() and verifyToken() functions to generate and verify JWTs for authentication.
 
-// Note that you can use the same approach to import and use other utility functions from the /server/utils directory in your application.
+// Note that you can use the same routerroach to import and use other utility functions from the /server/utils directory in your routerlication.
 
 // Me: How can I use the generateToken and verifyToken functions in my authentication middleware?
 
@@ -115,7 +115,7 @@ module.exports = router;
 
 // In this example, we're defining a route handler for a protected route that requires authentication. We're using the authMiddleware function as a parameter to the route handler to ensure that the user is authenticated before accessing the protected route. If the user is authenticated, the route handler returns a JSON response with a message. If the user is not authenticated, the authMiddleware function returns an error response with a 401 status code.
 
-// Note that you can use the same approach to import and use other middleware functions from the /server/middleware directory in your application.
+// Note that you can use the same routerroach to import and use other middleware functions from the /server/middleware directory in your routerlication.
 
 // Me: How can I use the generateToken and verifyToken functions in my authentication routes?
 
@@ -233,57 +233,57 @@ module.exports = router;
 
 // If the token is invalid, the route returns an error response with a 401 status code. If the token is valid, the route finds the user in the database using the User.findById() method from Mongoose. If the user doesn't exist, the route returns an error response with a 401 status code. If the user exists, the route returns a success response with a message.
 
-// To use these routes in your application, you can import the router into your main app file and use it as middleware, like this:
+// To use these routes in your routerlication, you can import the router into your main router file and use it as middleware, like this:
 
 // /SERVER/INDEX.JS EXAMPLE:
 const express = require("express");
 const authRoutes = require("./routes/authRoutes");
-const app = express();
+const router = express();
 
-app.use(express.json());
-app.use("/auth", authRoutes);
+router.use(express.json());
+router.use("/auth", authRoutes);
 
-app.listen(3000, () => {
+router.listen(3000, () => {
   console.log("Server started on port 3000");
 });
 
-// In this example, we're importing the authRoutes router from the /server/routes/authRoutes.js file and using it as middleware in our main app file. This allows us to use the routes defined in the authRoutes.js file in our application.
+// In this example, we're importing the authRoutes router from the /server/routes/authRoutes.js file and using it as middleware in our main router file. This allows us to use the routes defined in the authRoutes.js file in our routerlication.
 
 // In this example, we're importing the authRoutes router from the /routes/authRoutes.js file and using it as middleware for any routes that start with /auth. This means that any requests to /auth/login or /auth/protected will be handled by the routes defined in authRoutes.js.
 
-// To use the authRoutes router in your application, you can import it into your main app file and use it as middleware, like this:
+// To use the authRoutes router in your routerlication, you can import it into your main router file and use it as middleware, like this:
 
 // /SERVER/INDEX.JS EXAMPLE:
 const express = require("express");
 const authRoutes = require("./routes/authRoutes");
-const app = express();
+const router = express();
 
-app.use(express.json());
-app.use("/auth", authRoutes);
+router.use(express.json());
+router.use("/auth", authRoutes);
 
-app.listen(3000, () => {
+router.listen(3000, () => {
   console.log("Server started on port 3000");
 });
 
-// In this example, we're importing the authRoutes router from the /server/routes/authRoutes.js file and using it as middleware in our main app file. This allows us to use the routes defined in the authRoutes.js file in our application.
+// In this example, we're importing the authRoutes router from the /server/routes/authRoutes.js file and using it as middleware in our main router file. This allows us to use the routes defined in the authRoutes.js file in our routerlication.
 
 // In this example, we're importing the authRoutes router from the /routes/authRoutes.js file and using it as middleware for any routes that start with /auth. This means that any requests to /auth/login or /auth/protected will be handled by the routes defined in authRoutes.js.
 
-// You can also use the router as middleware in your application, like this:
+// You can also use the router as middleware in your routerlication, like this:
 
 // /SERVER/INDEX.JS EXAMPLE:
 const express = require("express");
 const authRoutes = require("./routes/authRoutes");
-const app = express();
+const router = express();
 
-app.use(express.json());
-app.use("/auth", authRoutes);
+router.use(express.json());
+router.use("/auth", authRoutes);
 
-app.listen(3000, () => {
+router.listen(3000, () => {
   console.log("Server started on port 3000");
 });
 
-// In this example, we're importing the authRoutes router from the /server/routes/authRoutes.js file and using it as middleware in our main app file. This allows us to use the routes defined in the authRoutes.js file in our application.
+// In this example, we're importing the authRoutes router from the /server/routes/authRoutes.js file and using it as middleware in our main router file. This allows us to use the routes defined in the authRoutes.js file in our routerlication.
 
 // In this example, we're importing the authRoutes router from the /routes/authRoutes.js file and using it as middleware for any routes that start with /auth. This means that any requests to /auth/login or /auth/protected will be handled by the routes defined in authRoutes.js.
 
@@ -391,30 +391,30 @@ module.exports = router;
 
 // If the password is incorrect, the route returns an error response with a 401 status code. If the password is correct, the route returns a success response with a message.
 
-// To use this route in your application, you can import the router into your main app file and use it as middleware, like this:
+// To use this route in your routerlication, you can import the router into your main router file and use it as middleware, like this:
 
 // /SERVER/INDEX.JS EXAMPLE:
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 
-const app = express();
+const router = express();
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/myapp", {
+mongoose.connect("mongodb://localhost:27017/myrouter", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
 // Use the authRoutes middleware
-app.use("/auth", authRoutes);
+router.use("/auth", authRoutes);
 
 // Start the server
-app.listen(3000, () => {
+router.listen(3000, () => {
   console.log("Server running");
 });
 
-// In this example, we're importing the authRoutes router from the /routes/authRoutes.js file and using it as middleware in our main app file.
+// In this example, we're importing the authRoutes router from the /routes/authRoutes.js file and using it as middleware in our main router file.
 
 // In this example, we're importing the authRoutes router from the /routes/authRoutes.js file and using it as middleware for any routes that start with /auth. This means that any requests to /auth/login will be handled by the route defined in authRoutes.js.
 

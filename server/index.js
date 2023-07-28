@@ -8,22 +8,18 @@
 
 // load environment variables from the .env file
 require("dotenv").config();
-
+const usersRouter = require("./routes/users");
 // port where the server will run
-const PORT = 8000;
-
+const PORT = process.env.SERVER_PORT || 8000;
 // import express
 const express = require("express");
-
 // use MongoClient to connect to the db
 const { MongoClient } = require("mongodb");
-
 // use uuid to generate a unique id for the user
 // uuidv1 is a function that generates a unique id
 // v2 stands for version 2
 // version 1 is a timestamp-based id
 const { v1: uuidv1 } = require("uuid");
-
 // jsonwebtoken is used to create a token for the user
 const jwt = require("jsonwebtoken");
 // cors is used to allow cross-origin requests
@@ -37,7 +33,6 @@ const jwt = require("jsonwebtoken");
 // cors is a function that is executed before the request is handled
 // cors allows cross-origin requests
 const cors = require("cors");
-
 // bcrypt is used to encrypt the password
 // the password is encrypted before it is stored in the database
 // the password is encrypted using a salt
@@ -47,17 +42,17 @@ const cors = require("cors");
 // the salt is stored with the hash in the database
 // bcrypt is used to compare the password with the hash
 const bcrypt = require("bcrypt");
-
-// load environment variables from the .env file
-// the .env file is in the root of the server folder
-// the .env file contains the connection URI to the MongoDB database server
-// the .env file is not committed to the git repository
-require("dotenv").config();
-
-// connection URI to the MongoDB database server
-const uri = process.env.MONGODB_URI;
+// connection URI to the MongoDB database server = process.env.MONGODB_URI
 // create an express app
 const app = express();
+// use CORS on the app
+app.use(cors());
+
+// ROUTES:
+app.use("/", usersRouter);
+// it's possible to define multiple routes for the same path, "/" for example.
+// this is a safe way to uncomment and define multiple routes for the same path
+// app.use("/", postsRouter);
 
 // configure express to use CORS
 app.use(cors());
@@ -71,27 +66,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the server" });
 });
 
-// FUNCTIONS:
-// generate a token for the user
-// the token is signed with the user id
-// the token is valid for 90 days
-// the token is signed with a secret key
-// the secret key is only known to the server
-// the secret key is used to verify the token
-// if the token is not signed with the secret key, it is not valid
-// the token is sent to the client and stored in the local storage
-// the token is sent to the server with every request
-// the server checks if the token is valid
-// if the token is valid, the user is authenticated
-// generate a token function:
-const generateToken = (user) => {
-  const token = jwt.sign(user, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
-  return token;
-};
 // END FUNCTIONS
 
-app.use(cors());
 // start the server and listen on port 8000 for any incoming connection
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
