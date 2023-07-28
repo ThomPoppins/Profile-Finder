@@ -94,6 +94,9 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // 201 is the success status code
       if (response.status === 201 && isSignUp) navigate("/onboarding");
       if (response.status === 201 && !isSignUp) navigate("/dashboard");
+
+      // reload the page
+      window.location.reload();
     } catch (error) {
       // if the response is not successful, catch the error
       // log the error to the console
