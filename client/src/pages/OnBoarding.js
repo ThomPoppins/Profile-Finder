@@ -42,7 +42,7 @@ const OnBoarding = () => {
         }
       );
       console.log("FORMDATA AFTER /user PUT API CALL::::::::", formData);
-      console.log("RESPONSE:", response);
+      console.log("RESPONSE PUT API CALL::::::::::::::", response);
       // if the response is successful, 200 or 201, redirect to the dashboard
       if ((await response.status) === 200 || 201) {
         navigate("/dashboard");
