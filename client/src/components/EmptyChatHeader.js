@@ -4,10 +4,6 @@ import Cookies from "universal-cookie";
 // Render a empty header when user is not logged in
 // EmptyChatHeader is used in ChatContainer in case the user is not logged in and no information about the user is available
 const EmptyChatHeader = () => {
-  const login = () => {
-    alert("Log in!");
-  };
-
   return (
     <div className="chat-container-header">
       <div className="profile">

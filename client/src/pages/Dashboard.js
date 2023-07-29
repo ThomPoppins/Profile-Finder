@@ -35,6 +35,8 @@ const Dashboard = () => {
     }
   };
 
+  // TODO: remove genderedUsers functionality when replacing Tinder matches with company profiles.
+  // TODO: render company profile list based on search criteria
   const getGenderedUsers = async () => {
     try {
       const response = await axios.get(
@@ -47,53 +49,55 @@ const Dashboard = () => {
       );
       setGenderedUsers(response.data);
     } catch (error) {
-      // TODO: handle error: https://www.developerway.com/posts/how-to-handle-errors-in-react
+      // log any errors to the console
       console.log(error);
     }
   };
 
   // useEffect() hook:
-  // call getUser() when the component is mounted
-  // call getUser() when the component is unmounted
-  // call getUser() when the component is updated
-  // the user state changes when the user_id is saved in cookies
+  // call getUser() and getGenderedUsers() when the component is mounted
+  // call getUser()  and getGenderedUsers() when the component is unmounted
+  // call getUser()  and getGenderedUsers() when the component is updated
+  // call getUser()  and getGenderedUsers() when user or genderedUsers state change
+  // TODO: BUG: investigate why the useEffect() is looping and how to solve this isSecureContext, it has something to do with the state change of users and genderedUsers. Find how it has to work when not run on state changes of user and genderedUsers.
   useEffect(() => {
     getUser();
     getGenderedUsers();
+    // }, [user, genderedUsers]); // TODO: enable this one to execute when state changes in case /dashboard is not up to date. BUG!: Results in infinite loop.
   }, []);
 
-  // sample data for the cards
-  const characters = [
-    {
-      name: "Richard Hendricks",
-      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
-    },
-    {
-      name: "Erlich Bachman",
-      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
-    },
-    {
-      name: "Monica Hall",
-      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
-    },
-    {
-      name: "Jared Dunn",
-      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
-    },
-    {
-      name: "Dinesh Chugtai",
-      url: "http://localhost:3000/static/media/colorlogo2.82fff75c874f0bd21541.png",
-    },
-  ];
+  // TODO: remove console.log() statements
+  console.log("DASHBOARD USER:", user);
+  console.log("DASHBOARD GENDERED USERS:", genderedUsers);
 
   // save last swipe direction in state
   const [lastDirection, setLastDirection] = useState();
 
-  // arrow function with 2 parameters (direction, nameToDelete)
+  // TODO: remove match logic when replacing Tinder matches with clickable company profiles.
+  // call /matches endpoint to update the matches
+  const updatedMatches = async (matchedUserId) => {
+    // if there is no user, return
+    if (!user) return;
+
+    // call /matches endpoint to update the matches
+    try {
+      await axios.put(process.env.REACT_APP_BACKEND_URL + "/matches", {
+        user_id: user.user_id,
+        matched_user_id: matchedUserId,
+      });
+    } catch (error) {
+      console.log("CATCHED UPDATED USER ERROR", error);
+    }
+  };
+
   // console.log() to log which name will be deleted, but not really (yet)
   // setLastDirection() to save the direction
-  const swiped = (direction, nameToDelete) => {
-    console.log("removing: " + nameToDelete);
+  // TODO: remove match logic when replacing Tinder matches with clickable company profiles.
+  const swiped = (direction, swipedUser) => {
+    if (direction === "right") {
+      updatedMatches(swipedUser.user_id);
+    }
+
     setLastDirection(direction);
   };
 
@@ -112,35 +116,46 @@ const Dashboard = () => {
       {/* the swipe container contains the card container */}
       <div className="swipe-container">
         {/* the card container contains the cards */}
-        <div className="card-container">
-          {/* the cards are created with the map() function */}
-
-          {characters.map((character) => (
-            // the swiped() function is called when a card is swiped
-            // the outOfFrame() function is called when a card leaves the screen
-            // the swiped() and outOfFrame() functions are passed as props to the TinderCard component
-            <TinderCard
-              className="swipe"
-              key={character.name}
-              onSwipe={(dir) => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}
-            >
-              {/* each card contains the character name and image */}
-              <div
-                style={{ backgroundImage: "url(" + character.url + ")" }}
-                className="card"
+        {/* Display a loading text and animation when the genderedUsers aren't loaded yet */}
+        {/* TODO: display a message when there are no more cards */}
+        {/* Replace genderedUsers with company profiles */}
+        {genderedUsers && (
+          <div className="card-container">
+            {/* the cards are created with the map() function */}
+            {genderedUsers?.map((genderedUsers) => (
+              // the swiped() function is called when a card is swiped
+              // the outOfFrame() function is called when a card leaves the screen
+              // the swiped() and outOfFrame() functions are passed as props to the TinderCard component
+              <TinderCard
+                className="swipe"
+                key={genderedUsers.first_name}
+                onSwipe={(dir) => swiped(dir, genderedUsers.user_id)}
+                onCardLeftScreen={() => outOfFrame(genderedUsers.first_name)}
               >
-                <h3>{character.name}</h3>
-              </div>
-            </TinderCard>
-          ))}
-          {/* the swipe-info container contains the last direction */}
-          {/* the last direction is saved in the state */}
-          {/* TODO: remove tekst "You swiped right!" etc. */}
-          <div className="swipe-info">
-            {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+                {/* each card contains the genderedUser name and image */}
+                <div
+                  style={{ backgroundImage: "url(" + genderedUsers.url + ")" }}
+                  className="card"
+                >
+                  <h3>{genderedUsers.first_name}</h3>
+                </div>
+              </TinderCard>
+            ))}
+            {/* the swipe-info container contains the last direction */}
+            {/* the last direction is saved in the state */}
+            {/* TODO: remove tekst "You swiped right!" etc. */}
+            <div className="swipe-info">
+              {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+            </div>
           </div>
-        </div>
+        )}
+        {!genderedUsers && (
+          <div className="card-container">
+            <div className="card">
+              <h3>Loading...</h3>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
