@@ -1,6 +1,14 @@
 # TODO:
 
-### Implement Three.js animation on the title in Home.js
+### TODO: BUG! /dashboard: investigate why the useEffect() is looping and how to solve this isSecureContext, it has something to do with the state change of users and genderedUsers. Find how it has to work when not run on state changes of user and genderedUsers.
+
+### TODO: Find out and decide how to develop Customer.js model to backend and use it in all places and find out advantages and disadvantages.
+
+### TODO: Implement Formik form validation and maybe form submission to all forms.
+
+### TODO: Log errors on the client side and on the server side.
+
+### TODO: Implement Three.js animation on the title in Home.js
 
 To use Three.js in your React app in /client, you can follow these steps:
 
@@ -253,7 +261,11 @@ export default Home;
 
 In this example, we're using the useRef hook to create a reference to the mesh object, which is the Three.js object hat represents the `<h1>` title. We're also using the clock object to get the elapsed time since the animation started, and then setting the rotation of the mesh object to the elapsed time around the y-axis.
 
-### Protect against CSRF on my website:
+### TODO: Add Google and Facebook authentication to my website:
+
+To add Google and Facebook authentication to your website, you can use the Passport.js library. Passport.js is a popular authentication library for Node.js that supports many different authentication methods, including Google and Facebook.
+
+### TODO: Protect against CSRF on my website:
 
 Cross-site request forgery (CSRF) is a type of attack where a malicious website or script tricks a user into performing an action on a different website without their knowledge or consent. For example, an attacker could create a form on their website that submits a request to a vulnerable endpoint on your website, causing the user's browser to execute the request and perform an action on your website without their knowledge.
 
@@ -269,7 +281,7 @@ Use CORS headers: Cross-origin resource sharing (CORS) headers can be used to re
 
 Overall, preventing CSRF attacks requires a combination of server-side and client-side security measures. By using CSRF tokens, same-site cookies, HTTP-only cookies, and CORS headers, you can help prevent attackers from tricking users into performing actions on your website without their knowledge or consent.
 
-### Most common security threats:
+### TODO: Protect against most common security threats:
 
 There are several common threats to web applications, and reducing the risks of these threats requires a comprehensive approach that involves both frontend and backend security measures. Here are some of the most common threats to web applications and how you can reduce the risks:
 

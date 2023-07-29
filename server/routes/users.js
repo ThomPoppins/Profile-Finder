@@ -194,22 +194,52 @@ router.get("/user", async (req, res) => {
 });
 
 // GET GENDERED USERS ROUTE:
-// return all users from the database
+// return all male or female users from the database
+// TODO: remove this route when implementing company profiles.
+// TODO: do not return the actual user
 router.get("/gendered-users", async (req, res) => {
   // initialize the MongoClient
   const client = new MongoClient(process.env.MONGODB_URI);
+  const gender = req.query.gender;
+
+  console.log("SERVER GENDER:", gender);
 
   // try to connect to the MongoDB database
   // if it does work, run the code in the try block
+  // catch handle them and any errors and log them to the console
+  // finally, close the connection to the database
   try {
+    // connect to the database
     await client.connect();
+
     // define the database
     database = client.db("app-data");
+
     // define the collection as users
-    users = database.collection("users");
+    usersCollection = database.collection("users");
+
+    // define the query to get users with gender: gender value
+    // TODO: enable this query
+    // const query = { gendered_identity: gender };
+    // TODO: disable this query and replace with the one above
+    // get all male users query
+    // #eq is the MongoDB query operator for equals https://docs.mongodb.com/manual/reference/operator/query/eq/
+    const query = { gender_identity: { $eq: "man" } };
+
     // find all the documents in the collection with empty find() method and put them in a array
-    const returnedUsers = await users.find().toArray();
-    res.send(returnedUsers);
+    const foundUsers = await usersCollection.find(query).toArray();
+
+    // log the users to the console
+    console.log("SERVER FOUNDUSERS: ", foundUsers);
+
+    // send the users to the client
+    res.send(foundUsers);
+  } catch (error) {
+    // catch any errors and log them to the console
+    console.log(error);
+
+    // send an error message to the client
+    res.status(500).send({ error: "Internal server error" });
   } finally {
     // finally, close the connection to the database
     await client.close();
