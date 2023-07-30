@@ -77,14 +77,18 @@ const Dashboard = () => {
   // call /matches endpoint to update the matches
   const updatedMatches = async (matchedUserId) => {
     // if there is no user, return
-    if (!user) return;
+    if (!user) {
+      console.log("NO DASHBOARD USER");
+      return;
+    }
 
-    // call /matches endpoint to update the matches
+    // call /add-match endpoint to add a match to user
     try {
-      await axios.put(process.env.REACT_APP_BACKEND_URL + "/matches", {
+      await axios.put(process.env.REACT_APP_BACKEND_URL + "/add-match", {
         user_id: user.user_id,
         matched_user_id: matchedUserId,
       });
+      getUser();
     } catch (error) {
       console.log("CATCHED UPDATED USER ERROR", error);
     }
@@ -94,8 +98,9 @@ const Dashboard = () => {
   // setLastDirection() to save the direction
   // TODO: remove match logic when replacing Tinder matches with clickable company profiles.
   const swiped = (direction, swipedUser) => {
+    console.log("swipedUser ID: " + swipedUser);
     if (direction === "right") {
-      updatedMatches(swipedUser.user_id);
+      updatedMatches(swipedUser);
     }
 
     setLastDirection(direction);

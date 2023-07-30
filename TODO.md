@@ -1,5 +1,7 @@
 # TODO:
 
+### Rename /dashboard to /app and Dashboard.js to App.js and <Dashboard />cto <App />
+
 ### TODO: BUG! /dashboard: investigate why the useEffect() is looping and how to solve this isSecureContext, it has something to do with the state change of users and genderedUsers. Find how it has to work when not run on state changes of user and genderedUsers.
 
 ### TODO: Find out and decide how to develop Customer.js model to backend and use it in all places and find out advantages and disadvantages.

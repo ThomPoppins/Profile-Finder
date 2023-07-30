@@ -9,6 +9,8 @@
 // load environment variables from the .env file
 require("dotenv").config();
 const usersRouter = require("./routes/users");
+const matchesRouter = require("./routes/matches");
+
 // port where the server will run
 const PORT = process.env.SERVER_PORT || 8000;
 // import express
@@ -50,6 +52,7 @@ app.use(cors());
 
 // ROUTES:
 app.use("/", usersRouter);
+app.use("/", matchesRouter);
 // it's possible to define multiple routes for the same path, "/" for example.
 // this is a safe way to uncomment and define multiple routes for the same path
 // app.use("/", postsRouter);
