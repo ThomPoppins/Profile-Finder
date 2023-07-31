@@ -112,6 +112,15 @@ const Dashboard = () => {
     console.log(name + " left the screen!");
   };
 
+  //check if user exists with user?
+  //check if user has matches with user?.matches?
+  //map over matches and return matched user ids
+  const matchedUserIds = user?.matches
+    ?.map((user_id) => user_id)
+    .concat(user.user_id);
+
+  const filteredGenderedUsers = genderedUsers?.filter(genderedUser);
+
   // the TinderCard component is imported from the react-tinder-card library
   return (
     // here the actual dashboard component is returned

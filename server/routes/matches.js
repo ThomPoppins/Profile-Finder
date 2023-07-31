@@ -52,6 +52,10 @@ router.put("/add-match", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // check if the match already exists
+    // if the match exists, do nothing
+    // if the match does not exist, add the match to the matches array of the user with user_id
+    // @elemMatch is a MongoDB operator that matches documents that contain an array field with at least one element that matches all the specified query criteria
     const matchExists = await usersCollection.findOne({
       user_id,
       matches: { $elemMatch: { user_id: matched_user_id } },
