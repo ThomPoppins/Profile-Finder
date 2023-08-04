@@ -21,6 +21,9 @@ const ChatDisplay = ({ user, clickedUser }) => {
         }
       );
 
+      // TODO: fix all loopings in the app using this:
+      // Prevent looping when usersMessages state changes
+      if (usersMessages === response.data) return;
       setUsersMessages(response.data);
     } catch (error) {
       console.log(error);
