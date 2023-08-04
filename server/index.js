@@ -10,6 +10,7 @@
 require("dotenv").config();
 const usersRouter = require("./routes/users");
 const matchesRouter = require("./routes/matches");
+const messagesRouter = require("./routes/messages");
 
 // port where the server will run
 const PORT = process.env.SERVER_PORT || 8000;
@@ -47,12 +48,13 @@ const bcrypt = require("bcrypt");
 // connection URI to the MongoDB database server = process.env.MONGODB_URI
 // create an express app
 const app = express();
-// use CORS on the app
+// use CORS on the app to allow cross origin requests
 app.use(cors());
 
 // ROUTES:
 app.use("/", usersRouter);
 app.use("/", matchesRouter);
+app.use("/", messagesRouter);
 // it's possible to define multiple routes for the same path, "/" for example.
 // this is a safe way to uncomment and define multiple routes for the same path
 // app.use("/", postsRouter);
