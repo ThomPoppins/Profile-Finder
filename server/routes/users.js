@@ -193,6 +193,49 @@ router.get("/user", async (req, res) => {
   }
 });
 
+// GET USERS ROUTE:
+// return multiple users from the database
+router.get("/users", async (req, res) => {
+  const client = new MongoClient(process.env.MONGODB_URI);
+
+  const userIds = JSON.parse(req.query.userIds);
+  console.log("/users userIds: ", userIds);
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+
+    // pipeline is an array of stages
+    // each stage is an object
+    // each stage defines how the documents are processed
+    // https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+    const pipeline = [
+      {
+        $match: {
+          user_id: {
+            $in: userIds,
+          },
+        },
+      },
+    ];
+
+    // you can use aggregate on a pipeline to return multiple documents
+    // https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/
+    // https://docs.mongodb.com/manual/reference/operator/aggregation/match/
+    // https://docs.mongodb.com/manual/reference/operator/aggregation/in/
+    const foundUsers = await users.aggregate(pipeline).toArray();
+
+    console.log("foundUsers: ", foundUsers);
+    res.send(foundUsers);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await client.close();
+    console.log("Connection to the database closed!");
+  }
+});
+
 // GET GENDERED USERS ROUTE:
 // return all male or female users from the database
 // TODO: remove this route when implementing company profiles.
