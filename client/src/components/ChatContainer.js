@@ -7,6 +7,8 @@ import { useState } from "react";
 const ChatContainer = ({ user }) => {
   const [clickedUser, setClickedUser] = useState(null);
 
+  console.log("clickedUser:", clickedUser);
+
   return (
     <div className="chat-container">
       {(user && <ChatHeader user={user} />) || <EmptyChatHeader />}
@@ -20,14 +22,16 @@ const ChatContainer = ({ user }) => {
       </div>
 
       {/* TODO: better visualization of loading */}
-      {(user && (
+      {!clickedUser && user && (
         <MatchesDisplay
           matches={user.matches}
           setClickedUser={setClickedUser}
         />
-      )) || <div>Loading...</div>}
+      )}
 
-      <ChatDisplay />
+      {clickedUser && user && (
+        <ChatDisplay user={user} clickedUser={clickedUser} />
+      )}
     </div>
   );
 };
