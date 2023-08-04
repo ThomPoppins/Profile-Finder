@@ -1,4 +1,4 @@
-const MatchesDisplay = () => {
+const MatchesDisplay = ({ matches }) => {
   return <div className="matches-display"></div>;
 };
 

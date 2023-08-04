@@ -112,14 +112,41 @@ const Dashboard = () => {
     console.log(name + " left the screen!");
   };
 
-  // check if user exists with user?
-  // check if user has matches with user?.matches?
-  // map over matches and return matched user ids
-  // concat the user id to the matched user ids
-  // concat() returns a new array with the user id and the matched user ids
+  /*
+    matchedUserIds is a variable that is used to store an array of user IDs.
+    The user object is first checked for existence using the optional 
+    chaining operator (?.). If user is null or undefined, the entire 
+    expression will evaluate to undefined. If user exists, the matches 
+    property is accessed using the dot notation.
+
+    The matches property is an array of user IDs that the current user
+    has matched with. The map() method is called on this array to 
+    create a new array with the same values. The arrow function 
+    passed to map() simply returns each user_id value unchanged.
+
+    The resulting array is then concatenated with the current user's 
+    own user_id property using the concat() method. This creates a 
+    new array that includes all the user IDs that the current user 
+    has matched with, as well as their own user ID.
+
+    Overall, this code is used to create an array of user IDs that the
+    current user has matched with, which is used elsewhere in the 
+    Dashboard.js file. The optional chaining operator is used to 
+    avoid errors if the user object or the matches property is null
+    or undefined.
+  */
   const matchedUserIds = user?.matches
     ?.map((user_id) => user_id)
     .concat(user.user_id);
+
+  console.log("MATCHED USER IDS:", matchedUserIds);
+
+  // filteredGenderedUsers is a variable that is used to store an array of user objects.
+  // The filter() method creates a shallow copy of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided function.
+  // The includes() method determines whether an array includes a certain value among its entries, returning true or false as appropriate.
+  const filteredGenderedUsers = genderedUsers?.filter(
+    (genderedUser) => !matchedUserIds?.includes(genderedUser.user_id)
+  );
 
   // the TinderCard component is imported from the react-tinder-card library
   return (
@@ -136,7 +163,7 @@ const Dashboard = () => {
         {genderedUsers && (
           <div className="card-container">
             {/* the cards are created with the map() function */}
-            {genderedUsers?.map((genderedUsers) => (
+            {filteredGenderedUsers?.map((genderedUsers) => (
               // the swiped() function is called when a card is swiped
               // the outOfFrame() function is called when a card leaves the screen
               // the swiped() and outOfFrame() functions are passed as props to the TinderCard component
