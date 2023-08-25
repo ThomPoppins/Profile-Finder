@@ -14,17 +14,20 @@ router.use(bodyParser.json());
 
 router.get("/messages", async (req, res) => {
   const client = new MongoClient(process.env.MONGODB_URI);
+  const { userId, correspondingUserId } = req.query;
+  console.log("userId: ", userId, "correspondingUserId: ", correspondingUserId);
   try {
     await client.connect();
     const database = client.db("app-data");
     const messagesCollection = database.collection("messages");
 
     const query = {
-      from_userId: req.query.userId,
-      to_userId: req.query.correspondingUserId,
+      from_userId: userId,
+      to_userId: correspondingUserId,
     };
 
     const foundMessages = await messagesCollection.find(query).toArray();
+    console.log("foundMessages: ", foundMessages);
     res.send(foundMessages);
   } catch (error) {
     console.log(error);

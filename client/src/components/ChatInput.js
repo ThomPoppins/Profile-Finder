@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-const ChatInput = () => {
+const ChatInput = ({
+  user,
+  clickedUser,
+  getUsersMessages,
+  getClickedUsersMessages,
+}) => {
   const [textArea, setTextArea] = useState();
 
   return (
