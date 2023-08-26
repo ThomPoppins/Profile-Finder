@@ -36,4 +36,22 @@ router.get("/messages", async (req, res) => {
   }
 });
 
+router.post("/message", async (req, res) => {
+  const client = new MongoClient(process.env.MONGODB_URI);
+  const message = req.body.message;
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const messagesCollection = database.collection("messages");
+
+    const insertedMessage = await messagesCollection.insertOne(message);
+    res.send(insertedMessage);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await client.close();
+  }
+});
+
 module.exports = router;

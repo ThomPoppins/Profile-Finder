@@ -135,9 +135,7 @@ const Dashboard = () => {
     avoid errors if the user object or the matches property is null
     or undefined.
   */
-  const matchedUserIds = user?.matches
-    ?.map((user_id) => user_id)
-    .concat(user.user_id);
+  const matchedUserIds = user?.matches?.map((match) => match.user_id) || [];
 
   console.log("MATCHED USER IDS:", matchedUserIds);
 
@@ -147,6 +145,8 @@ const Dashboard = () => {
   const filteredGenderedUsers = genderedUsers?.filter(
     (genderedUser) => !matchedUserIds?.includes(genderedUser.user_id)
   );
+
+  console.log("FILTERED GENDERED USERS:", filteredGenderedUsers);
 
   // the TinderCard component is imported from the react-tinder-card library
   return (
